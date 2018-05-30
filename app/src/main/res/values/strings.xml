@@ -1,0 +1,78 @@
+<resources>
+    <string name="app_name">TakeAndGo2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password </string>
+    <string name="action_sign_in">Sign in </string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="forgot_password">Forgot password</string>
+    <string name="register">register</string>
+    <string name="title_activity_login_activity2test">Sign in</string>
+    <string name="title_activity_branchs">BranchsActivity</string>
+    <string name="title_activity_scrolling">ScrollingActivity</string>
+    <string name="title_activity_credit_card">CreditCardActivity</string>
+    <string name="title_activity_credit_card_info">CreditCardInfoActivity</string>
+    <string name="title_activity_list_view_base">a</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="add_branch">add branch</string>
+    <string name="country">country</string>
+    <string name="city">city</string>
+    <string name="street">street</string>
+    <string name="house_num">house number</string>
+    <string name="num_parking_spaces">number of  parking spaces</string>
+    <string name="add">add</string>
+    <string name="id">id</string>
+    <string name="branch_number">Branch number</string>
+    <string name="ID">ID</string>
+    <string name="first_name">first name</string>
+    <string name="last_name">Last Name</string>
+    <string name="email">email</string>
+    <string name="manufacturer_name">manufacturer name</string>
+    <string name="model_name">model name</string>
+    <string name="engine_capacity">engine capacity</string>
+    <string name="seating">seating</string>
+    <string name="gear_box">gear box</string>
+    <string name="car_id">Car ID</string>
+    <string name="km">KM</string>
+    <string name="branch_id">branch ID</string>
+    <string name="branches">Branches</string>
+    <string name="car_models">Car Models</string>
+    <string name="expiration_date">expiration date</string>
+    <string name="digits">digits</string>
+    <string name="done">done</string>
+    <string name="cvv">cvv</string>
+    <string name="branchs">Branchs</string>
+    <string name="customers">Customers</string>
+    <string name="cars">Cars</string>
+    <string name="log_out">log out</string>
+    <string name="admin_users">Admin users</string>
+    <string name="branch">Branch</string>
+    <string name="car_model">Car model</string>
+    <string name="error_user_pass">Error: Username or password is incorrect</string>
+    <string name="error_the_user_already_exsit">Error: the user already exsit</string>
+    <string name="Isreal">Isreal</string>
+    <string name="branch_add_succ_mas">The branch was successfully added</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
