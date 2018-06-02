@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 
@@ -45,6 +46,18 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View header = navigationView.getHeaderView(0);
+
+        final Button logOutButton = header.findViewById(R.id.log_out_button);
+        if(logOutButton != null) {
+            logOutButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    logOut();
+                }
+            });
+        }
     }
 
     void checkLogin(){
@@ -54,6 +67,15 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent( MainActivity.this, LoginActivity.class));
 
         }
+    }
+
+    private void logOut() {
+        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("isLogon", false);
+        editor.putInt("failedLogin", 0);
+        editor.commit();
+        checkLogin();
     }
 
 
