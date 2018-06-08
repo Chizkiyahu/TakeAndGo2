@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -14,11 +16,15 @@ import android.view.MenuItem;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
+import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesFragment;
+import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.ContactUsFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
 
+    BranchesFragment branchesFragment = null;
+    ContactUsFragment contactUsFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +95,16 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.contact_us) {
+            if (contactUsFragment == null){
+                contactUsFragment = new ContactUsFragment();
+            }
+            changeFragement(contactUsFragment);
 
         } else if (id == R.id.branches) {
+            if (branchesFragment == null){
+                branchesFragment = new BranchesFragment();
+            }
+            changeFragement(branchesFragment);
 
         } else if (id == R.id.active_invitation) {
 
@@ -115,5 +129,12 @@ public class MainActivity extends AppCompatActivity
         editor.putInt("customerId", 0);
         editor.commit();
         checkLogin();
+    }
+
+    public  void changeFragement(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frgament_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
