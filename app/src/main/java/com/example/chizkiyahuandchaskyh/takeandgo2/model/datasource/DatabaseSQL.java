@@ -294,6 +294,8 @@ public class DatabaseSQL implements DataSource {
             values.put("firstName",customer.getFirstName());
             values.put("phoneNumber", customer.getPhoneNumber());
             values.put("email", customer.getEmail());
+            values.put("pass", customer.getPassword());
+
             if (customer.getCreditCard() != null){
                 customer.getCreditCard().setCustomerID(customer.getId());
                 addCreditCard(customer.getCreditCard());
@@ -578,19 +580,32 @@ public class DatabaseSQL implements DataSource {
     }
 
 
+
+
     @Override
-    public boolean tryUserPass(String username, String password) throws Exception {
+    public Customer tryUserPass(String username, String password) throws Exception {
+
+
         try {
-            String url = WEB_URL + "tryUserPass.php" ;
+            String url = WEB_URL + "getCustomerList.php" ;
             final ContentValues values = new ContentValues();
             values.put("email", username);
             values.put("pass", password);
             String json = Php.POST( url, values );
-            return Boolean.valueOf(json);
+            JSONArray array = new JSONObject( json ).getJSONArray( "Customer" );
+            JSONObject jsonObject = array.getJSONObject( 0 );
+            Customer customer = new Customer(
+                jsonObject.getString( "lastName" ),
+                jsonObject.getString( "firstName" ),
+                jsonObject.getInt( "id" ),
+                jsonObject.getString( "phoneNumber" ),
+                jsonObject.getString( "email"));
+            return customer;
+
         }catch (Exception e){
             Log.e(Constants.Log.TAG,e.getMessage());
         }
-        return false;
+        return null;
     }
 
     @Override
@@ -610,7 +625,7 @@ public class DatabaseSQL implements DataSource {
     @Override
     public void addUserPass(String username, String password) throws Exception {
         try {
-            String url = WEB_URL + "addAdmin.php" ;
+            String url = WEB_URL + "addUser.php" ;
 
             final ContentValues values = new ContentValues();
             values.put("email", username);

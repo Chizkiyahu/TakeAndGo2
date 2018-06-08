@@ -77,4 +77,9 @@
     <string name="contact_us">Contact Us</string>
     <string name="branches">Branches</string>
     <string name="active_invitation">Active invitation</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="create_account">Create Account</string>
+    <string name="back_to_login">Back to login</string>
+    <string name="loguot">Loguot</string>
 </resources>

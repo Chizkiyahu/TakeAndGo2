@@ -147,18 +147,8 @@ public class DatabaseList implements  DataSource  {
     }
 
     @Override
-    public boolean tryUserPass(String username, String password) throws Exception {
-        if (username.equals("") || username.equals(null) ){
-            throw new Exception("the username cant be empty");
-        }
-        if ( password.equals("") || password.equals(null)){
-            throw new Exception("the password cant be empty");
-        }
-        if(usersPassMap.containsKey(username)){
-            return usersPassMap.get(username).equals(password);
-        }
-
-    return false;
+    public Customer tryUserPass(String username, String Password) throws Exception {
+        return null;
     }
 
     @Override

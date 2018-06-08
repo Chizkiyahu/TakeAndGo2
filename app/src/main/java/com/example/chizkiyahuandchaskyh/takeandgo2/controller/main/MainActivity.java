@@ -1,11 +1,8 @@
-package com.example.chizkiyahuandchaskyh.takeandgo2.controller;
+package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -16,9 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
+import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,11 +39,12 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
     void checkLogin(){
 
         SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
         if(! prefs.getBoolean("isLogon", false)){
-            startActivity(new Intent( MainActivity.this, LoginActivity.class));
+            startActivity(new Intent( MainActivity.this, BasicLoginActivity.class));
 
         }
     }
@@ -104,5 +105,15 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onClickLoguot(MenuItem item) {
+        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("isLogon", false);
+        editor.putInt("failedLogin", 0);
+        editor.putInt("customerId", 0);
+        editor.commit();
+        checkLogin();
     }
 }

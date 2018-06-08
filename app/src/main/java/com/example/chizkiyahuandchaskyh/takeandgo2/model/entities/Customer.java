@@ -10,13 +10,23 @@ public class Customer {
     protected int id;
     protected String phoneNumber ;
     protected String email ;
+    protected String password;
     protected  CreditCard creditCard;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public Customer(String lastName, String firstName, int id, String phoneNumber, String email, CreditCard creditCard) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.id = id;
         this.phoneNumber = phoneNumber;
+
         this.email = email;
         this.creditCard = creditCard;
     }
@@ -27,6 +37,15 @@ public class Customer {
         this.id = id;
         this.phoneNumber = phoneNumber;
         this.email = email;
+    }
+
+    public Customer(String lastName, String firstName, int id, String phoneNumber, String email, String password) {
+        this.lastName = lastName;
+        this.firstName = firstName;
+        this.id = id;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.password = password;
     }
 
     public String getLastName() {
