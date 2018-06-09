@@ -1,6 +1,9 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -13,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
@@ -21,6 +25,18 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.Cont
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    private ResponseReceiver receiver;
+
+    public class ResponseReceiver extends BroadcastReceiver {
+
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int test = 5;
+        }
+    }
 
 
     BranchesFragment branchesFragment = null;
@@ -43,6 +59,11 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        IntentFilter filter = new IntentFilter("NEW_CAR_IS_FREE");
+        receiver = new ResponseReceiver();
+        registerReceiver(receiver, filter);
     }
 
 
