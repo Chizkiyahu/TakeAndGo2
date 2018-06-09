@@ -6,33 +6,31 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/contact_us"
-            android:title="@string/contact_us" />
-
-        <item
             android:id="@+id/branches"
+            android:icon="@drawable/ic_branches_black_24dp"
             android:title="@string/branches" />
         <item
-            android:id="@+id/order"
-            android:title="Order" />
+            android:id="@+id/my_orders"
+            android:icon="@drawable/ic_orders_black_24dp"
+            android:title="My Orders" />
         <item
-            android:id="@+id/active_invitation"
-            android:title="@string/active_invitation" />
-        <item
-            android:id="@+id/log_out"
-            android:title="Log Out" />
+            android:id="@+id/available_cars"
+            android:icon="@drawable/ic_car_black_24dp"
+            android:title="Available Cars" />
     </group>
 
-    <item android:title="Communicate">
+    <item android:title="Take &amp; Go">
         <menu>
+            <group android:checkableBehavior="single">
             <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
+                android:id="@+id/about_us"
+                android:icon="@drawable/ic_info_outline_black_24dp"
+                android:title="About Us" />
             <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
+                android:id="@+id/contact_us"
+                android:icon="@drawable/ic_contact_phone_black_24dp"
+                android:title="Contact Us" />
+            </group>
         </menu>
     </item>
 
