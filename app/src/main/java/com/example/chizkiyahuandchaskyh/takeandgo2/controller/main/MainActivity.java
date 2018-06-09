@@ -2,6 +2,7 @@ package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -13,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.view.View;
 import android.widget.Button;
 
@@ -24,18 +24,6 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.Cont
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ContactUsFragment.OnFragmentInteractionListener {
-
-
-    private ResponseReceiver receiver;
-
-    public class ResponseReceiver extends BroadcastReceiver {
-
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            int test = 5;
-        }
-    }
 
 
     BranchesFragment branchesFragment = null;
@@ -58,12 +46,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-
-        IntentFilter filter = new IntentFilter("NEW_CAR_IS_FREE");
-        receiver = new ResponseReceiver();
-        registerReceiver(receiver, filter);
-    }
 
         View header = navigationView.getHeaderView(0);
         final Button logOutButton = header.findViewById(R.id.log_out_button);
@@ -161,5 +143,10 @@ public class MainActivity extends AppCompatActivity
         transaction.replace(R.id.frgament_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        // do nothing
     }
 }
