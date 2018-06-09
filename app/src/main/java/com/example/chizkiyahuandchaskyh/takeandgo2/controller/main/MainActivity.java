@@ -1,9 +1,6 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -17,6 +14,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
@@ -24,7 +23,7 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.Bran
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.ContactUsFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, ContactUsFragment.OnFragmentInteractionListener {
 
 
     private ResponseReceiver receiver;
@@ -66,6 +65,17 @@ public class MainActivity extends AppCompatActivity
         registerReceiver(receiver, filter);
     }
 
+        View header = navigationView.getHeaderView(0);
+        final Button logOutButton = header.findViewById(R.id.log_out_button);
+        if (logOutButton != null) {
+            logOutButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onClickLoguot(null);
+                }
+            });
+        }
+    }
 
     void checkLogin(){
 
@@ -127,13 +137,7 @@ public class MainActivity extends AppCompatActivity
             }
             changeFragement(branchesFragment);
 
-        } else if (id == R.id.active_invitation) {
-
-        } else if (id == R.id.log_out) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.available_cars) {
 
         }
 
