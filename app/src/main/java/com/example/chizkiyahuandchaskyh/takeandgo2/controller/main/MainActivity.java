@@ -1,6 +1,9 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesFragment;
@@ -24,6 +28,15 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.Cont
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ContactUsFragment.OnFragmentInteractionListener {
+
+    private ResponseReceiver receiver;
+
+    public class ResponseReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            int test = 5;
+        }
+    }
 
 
     BranchesFragment branchesFragment = null;
@@ -57,6 +70,12 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+
+        IntentFilter filter = new IntentFilter("NEW_CAR_IS_FREE");
+        receiver = new ResponseReceiver();
+        registerReceiver(receiver, filter);
+
+
     }
 
     void checkLogin(){
