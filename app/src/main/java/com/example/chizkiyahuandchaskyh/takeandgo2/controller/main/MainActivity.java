@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity
     BranchesFragment branchesFragment = null;
     ContactUsFragment contactUsFragment = null;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
