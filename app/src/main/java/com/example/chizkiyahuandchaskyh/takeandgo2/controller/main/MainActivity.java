@@ -106,13 +106,7 @@ public class MainActivity extends AppCompatActivity
             }
             changeFragement(branchesFragment);
 
-        } else if (id == R.id.active_invitation) {
-
-        } else if (id == R.id.log_out) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.available_cars) {
 
         }
 
