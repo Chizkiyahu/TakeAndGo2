@@ -172,4 +172,49 @@ public class DatabaseList implements  DataSource  {
     public void addCreditCard(CreditCard creditCard) throws Exception {
 
     }
+
+    @Override
+    public void addOrder(Order order) throws Exception {
+
+    }
+
+    @Override
+    public ArrayList<Branch> getBranchList(int carModelId) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Car> getFreeCarList() {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Car> getFreeCarList(int branchId) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Car> getFreeCarList(double latitude, double longitude, int km) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Order> getOpenOrdersList() {
+        return null;
+    }
+
+    @Override
+    public void updateKm(int carId, int km) {
+
+    }
+
+    @Override
+    public void closeOrder(Order order) {
+
+    }
+
+    @Override
+    public ArrayList<Order> checkOrderCloseRecently() {
+        return null;
+    }
 }

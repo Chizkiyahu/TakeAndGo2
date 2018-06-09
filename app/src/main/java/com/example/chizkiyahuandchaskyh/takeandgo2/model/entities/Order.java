@@ -84,7 +84,7 @@ public class Order {
         this.endKM = endKM;
     }
 
-    public boolean isReturnNonFilledTank() {
+    public boolean getIsReturnNonFilledTank() {
         return returnNonFilledTank;
     }
 

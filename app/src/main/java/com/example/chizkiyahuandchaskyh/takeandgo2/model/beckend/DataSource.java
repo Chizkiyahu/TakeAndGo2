@@ -18,16 +18,24 @@ public interface DataSource {
     void addCar(Car car) throws Exception;
     void addBranch(Branch branch) throws Exception;
     void addCreditCard(CreditCard creditCard) throws Exception;
+    void addOrder(Order order) throws Exception;
 
 
 
     ArrayList<CarModel> getCarModelList();
     ArrayList<Customer> getCustomerList();
     ArrayList<Branch> getBranchList();
+    ArrayList<Branch> getBranchList(int carModelId);
     ArrayList<Car> getCarList();
+    ArrayList<Car> getFreeCarList();
+    ArrayList<Car> getFreeCarList(int branchId);
+    ArrayList<Car> getFreeCarList(double latitude, double longitude, int km);
     ArrayList<Address> getAddressesList();
     ArrayList<CreditCard> getCreditCardsList();
     ArrayList<Order> getOrdersList();
+    ArrayList<Order> getOpenOrdersList();
+
+
 
     Address getAddressByID(int id);
     Branch getBranchByID(int id);
@@ -36,6 +44,11 @@ public interface DataSource {
     Customer getCustomerById(int id);
     Order getOrderById(int id);
     CarModel getCarModelById(int id);
+
+
+    void updateKm(int carId, int km);
+    void closeOrder(Order order);
+    ArrayList<Order> checkOrderCloseRecently();
 
 
 

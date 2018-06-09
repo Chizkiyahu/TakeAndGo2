@@ -348,11 +348,9 @@ public class DatabaseSQL implements DataSource {
         try {
 
             String url = WEB_URL + "addBranch.php" ;
-            //this.addAddress(branch.getAddress());
             final ContentValues values = new ContentValues();
             values.put("id", branch.getId());
             values.put("numParkingSpaces", branch.getNumParkingSpaces());
-            //values.put("addressID", getAddressIdByParms(branch.getAddress()));
             values.put("addressID",addAddress(branch.getAddress()));
             Php.POST( url, values );
         } catch (Exception e) {
@@ -579,9 +577,6 @@ public class DatabaseSQL implements DataSource {
         return new ArrayList<>(cars.values());
     }
 
-
-
-
     @Override
     public Customer tryUserPass(String username, String password) throws Exception {
 
@@ -673,4 +668,146 @@ public class DatabaseSQL implements DataSource {
     }
 
 
+    @Override
+    public void addOrder(Order order) throws Exception {
+        try {
+            String url = WEB_URL + "addOrder.php" ;
+
+            final ContentValues values = new ContentValues();
+            values.put("orderID", order.getOrderID());
+            values.put("customerID", order.getCustomerID());
+            values.put("status",order.getStatus().toString());
+            values.put("start", order.getStart().toString());
+            values.put("end", order.getEnd().toString());
+            values.put("startKM", order.getStartKM());
+            values.put("endKM", order.getEndKM());
+            values.put("returnNonFilledTank", order.getIsReturnNonFilledTank());
+            values.put("quantityOfLitersPerBill", order.getQuantityOfLitersPerBill());
+            values.put("amountToPay", order.getAmountToPay());
+
+            Php.POST( url, values );
+        } catch (Exception e) {
+            Log.e(Constants.Log.TAG,e.getMessage());
+        }
+
+
+    }
+
+
+
+    @Override
+    public ArrayList<Branch> getBranchList(int carModelId) {
+     /*   try {
+            if (branches == null){
+                branches = new HashMap<>();
+            }
+            branches.clear();
+            String url = WEB_URL + "getBranchList.php" ;
+            final ContentValues values = new ContentValues();
+            values.put("orderID", carModelId);
+            String json =  Php.POST( url  ,values );
+            JSONArray array = new JSONObject( json ).getJSONArray( "Branch" );
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject( i );
+                branches.put(jsonObject.getInt( "id" ),
+                        new Branch(jsonObject.getInt( "id" ),
+                                jsonObject.getInt( "numParkingSpaces" ),
+                                new Address(getAddressByID( jsonObject.getInt( "addressID")))));
+            }
+        } catch (Exception e) {
+            Log.e(Constants.Log.TAG,e.getMessage());
+        }
+        return new ArrayList<>(branches.values());*/
+        return null;
+    }
+
+    @Override
+    public ArrayList<Car> getFreeCarList() {
+        ArrayList<Car> carsFree = new ArrayList<>();
+        try {
+            String json = Php.GET( WEB_URL + "getFreeCarList.php" );
+            JSONArray array = new JSONObject( json ).getJSONArray( "Car" );
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject( i );
+                carsFree.add(new Car(jsonObject.getInt( "id" ),
+                                jsonObject.getInt( "branchID" ),
+                                jsonObject.getInt("km"),
+                                new CarModel(getCarModelById(jsonObject.getInt("modelID")))));
+            }
+        } catch (Exception e) {
+            Log.e(Constants.Log.TAG,e.getMessage());
+        }
+        return carsFree;
+    }
+
+    @Override
+    public ArrayList<Car> getFreeCarList(int branchId) {
+        ArrayList<Car> carsFree = new ArrayList<>();
+        try {
+            String url = WEB_URL + "getFreeCarList.php";
+            final ContentValues values = new ContentValues();
+            values.put("branchID", branchId);
+            String json = Php.POST( url, values );
+            JSONArray array = new JSONObject( json ).getJSONArray( "Car" );
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject( i );
+                carsFree.add(new Car(jsonObject.getInt( "id" ),
+                        jsonObject.getInt( "branchID" ),
+                        jsonObject.getInt("km"),
+                        new CarModel(getCarModelById(jsonObject.getInt("modelID")))));
+            }
+        } catch (Exception e) {
+            Log.e(Constants.Log.TAG,e.getMessage());
+        }
+        return carsFree;
+    }
+
+    @Override
+    public ArrayList<Car> getFreeCarList(double latitude, double longitude, int km) {
+        return null;
+    }
+
+    @Override
+    public ArrayList<Order> getOpenOrdersList() {
+
+        ArrayList<Order> orders = new ArrayList<>();
+        try {
+            String url = WEB_URL + "getOrdersList.php";
+            final ContentValues values = new ContentValues();
+            values.put("status", "OPEN");
+            String json = Php.POST(url, values  );
+            JSONArray array = new JSONObject( json ).getJSONArray( "Order" );
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject( i );
+                orders.add(new Order(jsonObject.getInt( "orderID" ),
+                                jsonObject.getInt( "customerID" ),
+                                Order.STATUS.valueOf(jsonObject.getString("status")),
+                                Element.DataType.valueOf("start"),
+                                Element.DataType.valueOf("end"),
+                                jsonObject.getInt("startKM"),
+                                jsonObject.getInt("endKM"),
+                                Boolean.getBoolean(jsonObject.getString("returnNonFilledTank")),
+                                jsonObject.getInt("quantityOfLitersPerBill"),
+                                jsonObject.getInt("amountToPay")));
+            }
+        } catch (Exception e) {
+            Log.e(Constants.Log.TAG,e.getMessage());
+        }
+        return orders;
+    }
+
+    @Override
+    public void updateKm(int carId, int km) {
+
+    }
+
+    @Override
+    public void closeOrder(Order order) {
+
+    }
+
+    @Override
+    public ArrayList<Order> checkOrderCloseRecently() {
+        return null;
+    }
 }
