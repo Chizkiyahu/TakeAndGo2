@@ -697,28 +697,25 @@ public class DatabaseSQL implements DataSource {
 
     @Override
     public ArrayList<Branch> getBranchList(int carModelId) {
-     /*   try {
-            if (branches == null){
-                branches = new HashMap<>();
-            }
-            branches.clear();
-            String url = WEB_URL + "getBranchList.php" ;
+        ArrayList<Branch> branches = new ArrayList<>();
+        try {
+
+            String url = WEB_URL + "getBranchListWithCarModel.php" ;
             final ContentValues values = new ContentValues();
-            values.put("orderID", carModelId);
+            values.put("modelID", carModelId);
             String json =  Php.POST( url  ,values );
             JSONArray array = new JSONObject( json ).getJSONArray( "Branch" );
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject( i );
-                branches.put(jsonObject.getInt( "id" ),
-                        new Branch(jsonObject.getInt( "id" ),
+                branches.add(new Branch(jsonObject.getInt( "id" ),
                                 jsonObject.getInt( "numParkingSpaces" ),
                                 new Address(getAddressByID( jsonObject.getInt( "addressID")))));
             }
         } catch (Exception e) {
             Log.e(Constants.Log.TAG,e.getMessage());
         }
-        return new ArrayList<>(branches.values());*/
-        return null;
+        return branches;
+
     }
 
     @Override
