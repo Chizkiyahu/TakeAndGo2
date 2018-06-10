@@ -82,4 +82,8 @@
     <string name="create_account">Create Account</string>
     <string name="back_to_login">Back to login</string>
     <string name="loguot">Loguot</string>
+    <string name="back">Back</string>
+    <string name="phone">Phone:</string>
+    <string name="phone_fack">Phone: 1800800800</string>
+    <string name="email_fack">Email: email@gmail.com</string>
 </resources>

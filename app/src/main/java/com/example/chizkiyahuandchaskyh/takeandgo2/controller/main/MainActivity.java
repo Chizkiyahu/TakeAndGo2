@@ -28,10 +28,12 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.Cont
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.MyOrdersFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, ContactUsFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private ResponseReceiver receiver;
 
+    public void onClickBack(View view) {
+    }
 
 
     public class ResponseReceiver extends BroadcastReceiver {
@@ -51,6 +53,10 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         checkLogin();
+        if (contactUsFragment == null){
+            contactUsFragment = new ContactUsFragment();
+        }
+        changeFragement(contactUsFragment);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -177,10 +183,7 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-        // do nothing
-    }
+
 
     public void onClickOrder(View view) {
         //The implementation of the code is in MyOrdersFragment
