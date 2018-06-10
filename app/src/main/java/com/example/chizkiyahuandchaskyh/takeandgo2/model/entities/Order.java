@@ -2,21 +2,38 @@ package com.example.chizkiyahuandchaskyh.takeandgo2.model.entities;
 
 import android.renderscript.Element;
 
+import java.util.Date;
+
 public class Order {
     protected int orderID;
     protected int customerID;
+    protected int carID;
     protected STATUS status;
-    protected Element.DataType start;
-    protected Element.DataType end;
+    protected Date start;
+    protected Date end;
     protected int startKM;
     protected int endKM;
     protected boolean returnNonFilledTank;
     protected int quantityOfLitersPerBill;
     protected int amountToPay;
 
-    public Order(int orderID, int customerID, STATUS status, Element.DataType start, Element.DataType end, int startKM, int endKM, boolean returnNonFilledTank, int quantityOfLitersPerBill, int amountToPay) {
+    public int getCarID() {
+        return carID;
+    }
+
+    public void setCarID(int carID) {
+        this.carID = carID;
+    }
+
+    public boolean isReturnNonFilledTank() {
+        return returnNonFilledTank;
+    }
+
+
+    public Order(int orderID, int customerID, int carID, STATUS status, Date start, Date end, int startKM, int endKM, boolean returnNonFilledTank, int quantityOfLitersPerBill, int amountToPay) {
         this.orderID = orderID;
         this.customerID = customerID;
+        this.carID = carID;
         this.status = status;
         this.start = start;
         this.end = end;
@@ -26,7 +43,6 @@ public class Order {
         this.quantityOfLitersPerBill = quantityOfLitersPerBill;
         this.amountToPay = amountToPay;
     }
-
 
     public int getOrderID() {
         return orderID;
@@ -50,22 +66,6 @@ public class Order {
 
     public void setStatus(STATUS status) {
         this.status = status;
-    }
-
-    public Element.DataType getStart() {
-        return start;
-    }
-
-    public void setStart(Element.DataType start) {
-        this.start = start;
-    }
-
-    public Element.DataType getEnd() {
-        return end;
-    }
-
-    public void setEnd(Element.DataType end) {
-        this.end = end;
     }
 
     public int getStartKM() {
@@ -108,8 +108,23 @@ public class Order {
         this.amountToPay = amountToPay;
     }
 
+    public Date getStart() {
+        return start;
+    }
 
-   public enum STATUS{
+    public void setStart(Date start) {
+        this.start = start;
+    }
+
+    public Date getEnd() {
+        return end;
+    }
+
+    public void setEnd(Date end) {
+        this.end = end;
+    }
+
+    public enum STATUS{
         OPEN,
         CLOSED
     }

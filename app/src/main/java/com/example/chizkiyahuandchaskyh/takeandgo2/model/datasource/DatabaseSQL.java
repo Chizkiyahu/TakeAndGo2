@@ -1,6 +1,8 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.model.datasource;
 
 import android.content.ContentValues;
+import android.icu.text.DateFormat;
+import android.icu.text.SimpleDateFormat;
 import android.renderscript.Element;
 import android.util.Log;
 
@@ -18,8 +20,11 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.model.utils.Php;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class DatabaseSQL implements DataSource {
@@ -34,7 +39,7 @@ public class DatabaseSQL implements DataSource {
     private Map<Integer, CreditCard> creditCards ;
     private Map<Integer, Customer> customers ;
     private Map<Integer, Order> orders ;
-
+    DateFormat format = new SimpleDateFormat("yyyy-mm-d");
 
     @Override
     public Address getAddressByID(int id) {
@@ -214,9 +219,10 @@ public class DatabaseSQL implements DataSource {
                 orders.put(jsonObject.getInt( "orderID" ),
                         new Order(jsonObject.getInt( "orderID" ),
                                 jsonObject.getInt( "customerID" ),
+                                jsonObject.getInt("carID"),
                                 Order.STATUS.valueOf(jsonObject.getString("status")),
-                                Element.DataType.valueOf("start"),
-                                Element.DataType.valueOf("end"),
+                                format.parse( jsonObject.getString("start")),
+                                format.parse( jsonObject.getString("end")),
                                 jsonObject.getInt("startKM"),
                                 jsonObject.getInt("endKM"),
                                 Boolean.getBoolean(jsonObject.getString("returnNonFilledTank")),
@@ -538,9 +544,10 @@ public class DatabaseSQL implements DataSource {
                 orders.put(jsonObject.getInt( "orderID" ),
                         new Order(jsonObject.getInt( "orderID" ),
                                 jsonObject.getInt( "customerID" ),
+                                jsonObject.getInt("carID"),
                                 Order.STATUS.valueOf(jsonObject.getString("status")),
-                                Element.DataType.valueOf("start"),
-                                Element.DataType.valueOf("end"),
+                                format.parse( jsonObject.getString("start")),
+                                format.parse( jsonObject.getString("end")),
                                 jsonObject.getInt("startKM"),
                                 jsonObject.getInt("endKM"),
                                 Boolean.getBoolean(jsonObject.getString("returnNonFilledTank")),
@@ -676,6 +683,7 @@ public class DatabaseSQL implements DataSource {
             final ContentValues values = new ContentValues();
             values.put("orderID", order.getOrderID());
             values.put("customerID", order.getCustomerID());
+            values.put("carID", order.getCarID());
             values.put("status",order.getStatus().toString());
             values.put("start", order.getStart().toString());
             values.put("end", order.getEnd().toString());
@@ -778,9 +786,10 @@ public class DatabaseSQL implements DataSource {
                 JSONObject jsonObject = array.getJSONObject( i );
                 orders.add(new Order(jsonObject.getInt( "orderID" ),
                                 jsonObject.getInt( "customerID" ),
+                                jsonObject.getInt("carID"),
                                 Order.STATUS.valueOf(jsonObject.getString("status")),
-                                Element.DataType.valueOf("start"),
-                                Element.DataType.valueOf("end"),
+                                format.parse( jsonObject.getString("start")),
+                                format.parse( jsonObject.getString("end")),
                                 jsonObject.getInt("startKM"),
                                 jsonObject.getInt("endKM"),
                                 Boolean.getBoolean(jsonObject.getString("returnNonFilledTank")),

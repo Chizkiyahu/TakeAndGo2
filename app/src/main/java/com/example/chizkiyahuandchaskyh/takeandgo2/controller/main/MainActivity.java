@@ -25,11 +25,14 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.ContactUsFragment;
+import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.MyOrdersFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, ContactUsFragment.OnFragmentInteractionListener {
 
     private ResponseReceiver receiver;
+
+
 
     public class ResponseReceiver extends BroadcastReceiver {
         @Override
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity
 
     BranchesFragment branchesFragment = null;
     ContactUsFragment contactUsFragment = null;
+    MyOrdersFragment myOrdersFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,6 +145,15 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.available_cars) {
 
         }
+        else if (id == R.id.my_orders) {
+            if (myOrdersFragment == null){
+                myOrdersFragment = new MyOrdersFragment();
+            }
+            changeFragement(myOrdersFragment);
+
+        }
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -167,5 +180,9 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onFragmentInteraction(Uri uri) {
         // do nothing
+    }
+
+    public void onClickOrder(View view) {
+        //The implementation of the code is in MyOrdersFragment
     }
 }
