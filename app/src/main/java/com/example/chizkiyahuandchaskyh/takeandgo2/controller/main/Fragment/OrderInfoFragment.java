@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.BackendFactory;
@@ -18,8 +19,8 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Order;
 
 public class OrderInfoFragment extends Fragment {
 
-    EditText orderIdView, carIdView, customerIdView, statusView, startView, endView, starKmView, endKmView;
-    EditText returnNonFilledTankView, quantityOfLitersPerBillView, amountToPayView;
+    TextView orderIdView, carIdView, customerIdView, statusView, startView, endView, starKmView, endKmView;
+    TextView returnNonFilledTankView, quantityOfLitersPerBillView, amountToPayView;
 
     protected DataSource dataSource  = BackendFactory.getDataSource();
     @Override
@@ -39,24 +40,24 @@ public class OrderInfoFragment extends Fragment {
             @Override
             protected void onPostExecute(Order order) {
                 super.onPostExecute(order);
-                orderIdView.setText( order.getOrderID());
-                carIdView.setText(order.getCarID());
-                customerIdView.setText(order.getCustomerID());
+                orderIdView.setText(Integer.toString(order.getOrderID()));
+                carIdView.setText(Integer.toString(order.getCarID()));
+                customerIdView.setText(Integer.toString(order.getCustomerID()));
                 statusView.setText(order.getStatus().toString());
                 startView.setText(order.getStart().toString());
                 endView.setText(order.getEnd().toString());
-                starKmView.setText(order.getStartKM());
-                endKmView.setText(order.getEndKM());
+                starKmView.setText(Integer.toString(order.getStartKM()));
+                endKmView.setText(Integer.toString(order.getEndKM()));
                 returnNonFilledTankView.setText(String.valueOf(order.getIsReturnNonFilledTank()));
-                quantityOfLitersPerBillView.setText(order.getQuantityOfLitersPerBill());
-                amountToPayView.setText(order.getAmountToPay());
+                quantityOfLitersPerBillView.setText(Integer.toString(order.getQuantityOfLitersPerBill()));
+                amountToPayView.setText(Integer.toString(order.getAmountToPay()));
             }
 
             @Override
             protected Order doInBackground(Integer... integers) {
                 return dataSource.getOrderById(integers[0]);
             }
-        }.execute();
+        }.execute(orderID);
 
         return view;
     }
@@ -75,6 +76,8 @@ public class OrderInfoFragment extends Fragment {
         quantityOfLitersPerBillView = view.findViewById(R.id.order_info_quantity_of_liters_per_bill);
         amountToPayView = view.findViewById(R.id.order_info_amount_to_pay);
     }
+
+
 
 
 
