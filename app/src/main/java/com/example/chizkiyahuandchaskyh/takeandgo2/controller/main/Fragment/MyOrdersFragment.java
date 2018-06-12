@@ -75,6 +75,7 @@ public class MyOrdersFragment extends Fragment {
 
         }.execute();
         listView = view.findViewById(R.id.order_view);
+        adapter = null;
         getListViewAdapter();
         listView.setAdapter(getListViewAdapter());
         getListViewAdapter().notifyDataSetChanged();
@@ -89,7 +90,7 @@ public class MyOrdersFragment extends Fragment {
 
     protected ArrayAdapter getListViewAdapter() {
 
-        if (adapter ==null) {
+        if (adapter == null) {
             adapter = new ArrayAdapter<Order>( getContext(), R.layout.order_line, orderArrayList) {
                 @NonNull
                 @Override
