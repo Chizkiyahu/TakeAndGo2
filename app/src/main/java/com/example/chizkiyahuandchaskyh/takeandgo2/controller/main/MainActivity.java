@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ResponseReceiver receiver;
-
+    private MenuItem filterItem;
     public void onClickBack(View view) {
     }
 
@@ -91,10 +91,6 @@ public class MainActivity extends AppCompatActivity
         IntentFilter filter = new IntentFilter("NEW_CAR_IS_FREE");
         receiver = new ResponseReceiver();
         registerReceiver(receiver, filter);
-
-
-
-
     }
 
     void checkLogin(){
@@ -124,8 +120,8 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+
+        return false;
     }
 
     @Override
@@ -135,10 +131,7 @@ public class MainActivity extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -159,8 +152,8 @@ public class MainActivity extends AppCompatActivity
             if (branchesFragment == null){
                 branchesFragment = new BranchesFragment();
             }
-            changeFragement(branchesFragment);
 
+            changeFragement(branchesFragment);
         } else if (id == R.id.available_cars) {
 
         }
