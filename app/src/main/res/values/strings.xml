@@ -95,4 +95,11 @@
     <string name="contact_form_button">Send Message</string>
     <string name="contact_form_post_message">Please wait! We\'re sending your message to the support department...</string>
     <string name="contact_posted">Your message has been successfully delivered.</string>
+    <string name="phone_1800_123_456">Phone : 1800-123-456</string>
+    <string name="take_and_go">Take and go</string>
+    <string name="http_rafol_vlab_jct_ac_il_takeandgo_welcome_php">http://rafol.vlab.jct.ac.il/TakeAndGo/welcome.php</string>
+    <string name="email_chezkiaho_gmail_com">Email : chezkiaho@gmail.com</string>
+    <string name="chezkiaho_gmail_com">chezkiaho@gmail.com</string>
+    <string name="_1800123456">1800123456</string>
+    <string name="email_">Email:</string>
 </resources>

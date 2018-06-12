@@ -31,6 +31,7 @@ import android.widget.Button;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
+import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.AboutUsFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.ContactUsFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.MyOrdersFragment;
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     BranchesFragment branchesFragment = null;
     ContactUsFragment contactUsFragment = null;
     MyOrdersFragment myOrdersFragment = null;
+    AboutUsFragment aboutUsFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,6 +165,12 @@ public class MainActivity extends AppCompatActivity
             }
             changeFragement(myOrdersFragment);
 
+        }
+        else if (id == R.id.about_us){
+            if (aboutUsFragment == null){
+                aboutUsFragment = new AboutUsFragment();
+            }
+            changeFragement(aboutUsFragment);
         }
 
 

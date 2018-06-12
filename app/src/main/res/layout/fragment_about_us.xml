@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".controller.main.Fragment.AboutUsFragment">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/take_and_go"
+            android:textSize="25sp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/colorAccent"
+            android:padding="10dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/phone"
+                    android:gravity="center_horizontal"
+                    android:textSize="25sp"
+                    android:textColor="@color/colorAccent"
+                    android:padding="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_1800123456"
+                    android:gravity="center_horizontal"
+                    android:textSize="25sp"
+                    android:autoLink="phone"
+                    android:textColor="@color/colorAccent"
+                    android:padding="10dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email_"
+                    android:gravity="center_horizontal"
+                    android:textSize="25sp"
+                    android:textColor="@color/colorAccent"
+                    android:padding="10dp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/chezkiaho_gmail_com"
+                    android:autoLink="email"
+                    android:gravity="center_horizontal"
+                    android:textSize="25sp"
+                    android:padding="10dp"
+                    android:textColor="@color/colorAccent" />
+
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Web Site"
+            android:gravity="center_horizontal"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"
+            android:padding="10dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/http_rafol_vlab_jct_ac_il_takeandgo_welcome_php"
+            android:gravity="center_horizontal"
+            android:padding="10dp"
+            android:textSize="25sp"
+            android:textColor="@color/colorAccent"
+            android:autoLink="web">
+        </TextView>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address: "
+                android:gravity="center_horizontal"
+                android:textSize="25sp"
+                android:textColor="@color/colorAccent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="620 Eighth Avenue New York, NY 10018"
+                android:gravity="center_horizontal"
+                android:textSize="20sp"
+                android:textColor="@color/colorAccent"
+                android:autoLink="map">
+            </TextView>
+
+
+        </LinearLayout>
+
+
+
+
+</LinearLayout>
