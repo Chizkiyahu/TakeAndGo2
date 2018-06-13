@@ -15,6 +15,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
-public class BranchesFragment extends Fragment implements ItemListDialogFragment.Listener {
+public class BranchesFragment extends Fragment implements ItemListDialogFragment.Listener, BranchFragment.Listener {
 
 
     protected DataSource dataSource  = BackendFactory.getDataSource();
@@ -75,7 +76,14 @@ public class BranchesFragment extends Fragment implements ItemListDialogFragment
         getListViewAdapter();
         listView.setAdapter(getListViewAdapter());
         getListViewAdapter().notifyDataSetChanged();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
+                Branch branch = branchArrayList.get(position);
+                BranchFragment.newInstance(branch.getId()).show(getChildFragmentManager(), "dialog");
+            }
+        });
         return view;
     }
 

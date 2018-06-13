@@ -32,9 +32,12 @@ import android.widget.Button;
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.AboutUsFragment;
+import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesFragment;
+import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesMapFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.ContactUsFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.MyOrdersFragment;
+import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Branch;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +61,7 @@ public class MainActivity extends AppCompatActivity
     ContactUsFragment contactUsFragment = null;
     MyOrdersFragment myOrdersFragment = null;
     AboutUsFragment aboutUsFragment = null;
+    BranchesMapFragment branchesMapFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +95,8 @@ public class MainActivity extends AppCompatActivity
         IntentFilter filter = new IntentFilter("NEW_CAR_IS_FREE");
         receiver = new ResponseReceiver();
         registerReceiver(receiver, filter);
+
+        changeFragement(getMyOrdersFragment());
     }
 
     void checkLogin(){
@@ -142,39 +148,34 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.contact_us) {
-            if (contactUsFragment == null){
-                contactUsFragment = new ContactUsFragment();
-            }
-            changeFragement(contactUsFragment);
-
-        } else if (id == R.id.branches) {
-            if (branchesFragment == null){
-                branchesFragment = new BranchesFragment();
-            }
-
-            changeFragement(branchesFragment);
-        } else if (id == R.id.available_cars) {
-
-        }
-        else if (id == R.id.my_orders) {
-            if (myOrdersFragment == null){
-                myOrdersFragment = new MyOrdersFragment();
-            }
-            changeFragement(myOrdersFragment);
-
-        }
-        else if (id == R.id.about_us){
-            if (aboutUsFragment == null){
-                aboutUsFragment = new AboutUsFragment();
-            }
-            changeFragement(aboutUsFragment);
+        Fragment fragment = null;
+        switch (id) {
+            case R.id.contact_us:
+                fragment = getContactUsFragment();
+                break;
+            case R.id.branches:
+                fragment = getBranchesFragment();
+                break;
+            case R.id.branches_map:
+                fragment = getBranchesMapFragment();
+                break;
+            case R.id.about_us:
+                fragment = getAboutUsFragment();
+                break;
+            case R.id.my_orders:
+                fragment = getMyOrdersFragment();
+                break;
+                default:
+                    break;
         }
 
-
+        if(fragment != null) {
+            changeFragement(fragment);
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        setTitle(item.getTitle());
         return true;
     }
 
@@ -266,6 +267,41 @@ public class MainActivity extends AppCompatActivity
 
         Notification notification = builder.build();
         notifManager.notify(NOTIFY_ID, notification);
+    }
+
+    private BranchesMapFragment getBranchesMapFragment() {
+        if(branchesMapFragment == null) {
+            branchesMapFragment = new BranchesMapFragment();
+        }
+        return branchesMapFragment;
+    }
+
+    private BranchesFragment getBranchesFragment() {
+        if(branchesFragment == null) {
+            branchesFragment = new BranchesFragment();
+        }
+        return branchesFragment;
+    }
+
+    private ContactUsFragment getContactUsFragment() {
+        if(contactUsFragment == null) {
+            contactUsFragment = new ContactUsFragment();
+        }
+        return contactUsFragment;
+    }
+
+    private MyOrdersFragment getMyOrdersFragment() {
+        if(myOrdersFragment == null) {
+            myOrdersFragment = new MyOrdersFragment();
+        }
+        return myOrdersFragment;
+    }
+
+    private AboutUsFragment getAboutUsFragment() {
+        if(aboutUsFragment == null) {
+            aboutUsFragment = new AboutUsFragment();
+        }
+        return aboutUsFragment;
     }
 
 
