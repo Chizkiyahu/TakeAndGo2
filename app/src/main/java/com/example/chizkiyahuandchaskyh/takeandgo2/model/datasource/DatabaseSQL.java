@@ -1,9 +1,9 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.model.datasource;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
-import android.renderscript.Element;
 import android.util.Log;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.DataSource;
@@ -20,11 +20,8 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.model.utils.Php;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class DatabaseSQL implements DataSource {
@@ -39,7 +36,7 @@ public class DatabaseSQL implements DataSource {
     private Map<Integer, CreditCard> creditCards ;
     private Map<Integer, Customer> customers ;
     private Map<Integer, Order> orders ;
-    DateFormat format = new SimpleDateFormat("yyyy-mm-d");
+    private DateFormat format = new SimpleDateFormat("yyyy-mm-d");
 
     @Override
     public Address getAddressByID(int id) {
@@ -73,6 +70,7 @@ public class DatabaseSQL implements DataSource {
         return addresses.get(id);
     }
 
+    @SuppressLint("UseSparseArrays")
     public int getAddressIdByParms(Address address){
         try {
             if (addresses == null){
@@ -111,6 +109,7 @@ public class DatabaseSQL implements DataSource {
         return -1;
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public Branch getBranchByID(int id) {
 
@@ -139,6 +138,7 @@ public class DatabaseSQL implements DataSource {
         return branches.get(id);
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public Car getCarByID(int id) {
         try {
@@ -147,6 +147,9 @@ public class DatabaseSQL implements DataSource {
             }
             if (addresses == null){
                 addresses = new HashMap<>();
+            }
+            if (cars == null){
+                cars = new HashMap<>();
             }
             String url = WEB_URL + "getCarList.php" ;
             final ContentValues values = new ContentValues();
@@ -167,6 +170,7 @@ public class DatabaseSQL implements DataSource {
         return cars.get(id);
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public Customer getCustomerById(int id) {
         try {
@@ -200,6 +204,7 @@ public class DatabaseSQL implements DataSource {
         return customers.get(id);
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public Order getOrderById(int id) {
         try {
@@ -241,7 +246,7 @@ public class DatabaseSQL implements DataSource {
     }
 
     @Override
-    public void addCreditCard(CreditCard creditCard) throws Exception {
+    public void addCreditCard(CreditCard creditCard) {
         try {
             String url = WEB_URL + "addCreditCard.php" ;
 
@@ -257,6 +262,7 @@ public class DatabaseSQL implements DataSource {
         }
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public CarModel getCarModelById(int id) {
         try {
@@ -290,7 +296,7 @@ public class DatabaseSQL implements DataSource {
     }
 
     @Override
-    public void addCustomer(Customer customer) throws Exception {
+    public void addCustomer(Customer customer) {
         try {
             String url = WEB_URL + "addCustomer.php" ;
 
@@ -314,7 +320,7 @@ public class DatabaseSQL implements DataSource {
     }
 
     @Override
-    public void addCarModle(CarModel carModel) throws Exception {
+    public void addCarModle(CarModel carModel) {
         try {
             String url = WEB_URL + "addCarModel.php" ;
 
@@ -332,7 +338,7 @@ public class DatabaseSQL implements DataSource {
     }
 
     @Override
-    public void addCar(Car car) throws Exception {
+    public void addCar(Car car) {
         try {
             String url = WEB_URL + "addCar.php" ;
 
@@ -350,7 +356,7 @@ public class DatabaseSQL implements DataSource {
     }
 
     @Override
-    public void addBranch(Branch branch) throws Exception {
+    public void addBranch(Branch branch) {
         try {
 
             String url = WEB_URL + "addBranch.php" ;
@@ -365,7 +371,7 @@ public class DatabaseSQL implements DataSource {
 
     }
 
-    public int addAddress(Address address) throws Exception {
+    private int addAddress(Address address) {
         try {
             String url = WEB_URL + "addAddress.php" ;
 
@@ -394,6 +400,7 @@ public class DatabaseSQL implements DataSource {
         return -1;
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public ArrayList<CarModel> getCarModelList() {
         try {
@@ -422,6 +429,7 @@ public class DatabaseSQL implements DataSource {
         return new ArrayList<>(carModels.values());
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public ArrayList<Customer> getCustomerList() {
         try {
@@ -450,6 +458,7 @@ public class DatabaseSQL implements DataSource {
         return new ArrayList<>(customers.values());
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public ArrayList<Branch> getBranchList() {
         try {
@@ -474,6 +483,7 @@ public class DatabaseSQL implements DataSource {
 
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public ArrayList<Address> getAddressesList() {
         try {
@@ -529,6 +539,7 @@ public class DatabaseSQL implements DataSource {
        return null;
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public ArrayList<Order> getOrdersList() {
         try {
@@ -560,6 +571,7 @@ public class DatabaseSQL implements DataSource {
         return new ArrayList<>(orders.values());
     }
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public ArrayList<Car> getCarList() {
         try {
@@ -585,7 +597,7 @@ public class DatabaseSQL implements DataSource {
     }
 
     @Override
-    public Customer tryUserPass(String username, String password) throws Exception {
+    public Customer tryUserPass(String username, String password) {
 
 
         try {
@@ -596,13 +608,12 @@ public class DatabaseSQL implements DataSource {
             String json = Php.POST( url, values );
             JSONArray array = new JSONObject( json ).getJSONArray( "Customer" );
             JSONObject jsonObject = array.getJSONObject( 0 );
-            Customer customer = new Customer(
+            return new Customer(
                 jsonObject.getString( "lastName" ),
                 jsonObject.getString( "firstName" ),
                 jsonObject.getInt( "id" ),
                 jsonObject.getString( "phoneNumber" ),
                 jsonObject.getString( "email"));
-            return customer;
 
         }catch (Exception e){
             Log.e(Constants.Log.TAG,e.getMessage());
@@ -611,7 +622,7 @@ public class DatabaseSQL implements DataSource {
     }
 
     @Override
-    public boolean checkUserIsFree(String username) throws Exception {
+    public boolean checkUserIsFree(String username) {
             try {
                 String url = WEB_URL + "tryUserPass.php" ;
                 final ContentValues values = new ContentValues();
@@ -625,7 +636,7 @@ public class DatabaseSQL implements DataSource {
     }
 
     @Override
-    public void addUserPass(String username, String password) throws Exception {
+    public void addUserPass(String username, String password) {
         try {
             String url = WEB_URL + "addUser.php" ;
 
@@ -640,6 +651,7 @@ public class DatabaseSQL implements DataSource {
 
     ////////---
     //
+    @SuppressLint("UseSparseArrays")
     @Override
     public CreditCard getCreditCardByID(int id) {
         if (creditCards == null){
@@ -676,7 +688,7 @@ public class DatabaseSQL implements DataSource {
 
 
     @Override
-    public void addOrder(Order order) throws Exception {
+    public void addOrder(Order order) {
         try {
             String url = WEB_URL + "addOrder.php" ;
 

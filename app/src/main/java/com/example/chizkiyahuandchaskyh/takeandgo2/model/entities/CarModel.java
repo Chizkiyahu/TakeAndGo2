@@ -1,23 +1,6 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.model.entities;
 
-import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.BackendFactory;
-
 public class CarModel {
-
-    public CarModel(String manufacturerName, String modelName, int engineCapacity, GEAR_BOX gearBox, int seating) {
-        this.manufacturerName = manufacturerName;
-        this.modelName = modelName;
-        this.engineCapacity = engineCapacity;
-        this.gearBox = gearBox;
-        this.seating = seating;
-        this.codeModel = 1;
-        for (CarModel carModel: BackendFactory.getDataSource().getCarModelList()) {
-            if (carModel.getCodeModel() >= this.codeModel){
-                this.codeModel = carModel.getCodeModel() + 1;
-            }
-        }
-
-    }
 
     public CarModel(int codeModel, String manufacturerName, String modelName, int engineCapacity, GEAR_BOX gearBox, int seating) {
         this.codeModel = codeModel;
@@ -37,11 +20,11 @@ public class CarModel {
         this.seating = oldCarModel.seating;
     }
 
-    protected int codeModel;
-    protected String manufacturerName;
-    protected String modelName;
-    protected int engineCapacity;
-    protected GEAR_BOX gearBox;
+    private int codeModel;
+    private String manufacturerName;
+    private String modelName;
+    private int engineCapacity;
+    private GEAR_BOX gearBox;
     protected int seating;
 
     public enum GEAR_BOX{

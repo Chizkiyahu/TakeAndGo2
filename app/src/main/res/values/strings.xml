@@ -196,4 +196,20 @@
     <string name="branch_id_">Branch ID:</string>
     <string name="km_">KM:</string>
     <string name="model_">Model :</string>
+    <string name="car_id_">Car ID :</string>
+    <string name="model_id_">Model ID :</string>
+    <string name="manufacturer">Manufacturer :</string>
+    <string name="model">Model :</string>
+    <string name="gear_box_">Gear Box :</string>
+    <string name="address">Address :</string>
+    <string name="parking_spaces">Parking Spaces :</string>
+    <string name="engine_capacity_">Engine Capacity :</string>
+    <string name="seating_">Seating :</string>
+    <string name="car_id__">Car ID :</string>
+    <string name="branch_number_">Branch Number :</string>
+    <string name="km__">KM :</string>
+    <string name="book_your_car">Book your car</string>
+    <string name="Order_ID">Order ID:</string>
+    <string name="Car_ID">Car ID:</string>
+    <string name="Order_id">Order ID</string>
 </resources>

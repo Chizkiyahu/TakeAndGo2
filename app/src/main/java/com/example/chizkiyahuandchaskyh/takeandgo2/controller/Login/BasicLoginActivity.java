@@ -43,10 +43,10 @@ public class BasicLoginActivity extends AppCompatActivity {
     }
 
 
-    void onClickSignIn(View view){
+   public void onClickSignIn(View view){
         //The implementation of the code is in LoginFragment
     }
-    void onClickRegister(View view){
+   public void onClickRegister(View view){
         //The implementation of the code is in LoginFragment
     }
 

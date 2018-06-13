@@ -1,13 +1,12 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment;
 
-import android.content.res.Configuration;
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SharedElementCallback;
 import android.view.LayoutInflater;
@@ -20,12 +19,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
-import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.TryUserPass;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.BackendFactory;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.DataSource;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Order;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class MyOrdersFragment extends Fragment {
@@ -43,12 +42,13 @@ public class MyOrdersFragment extends Fragment {
 
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_my_orders, container, false);
-        FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.fab);
+        FloatingActionButton fab = view.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +90,8 @@ public class MyOrdersFragment extends Fragment {
     protected ArrayAdapter getListViewAdapter() {
 
         if (adapter == null) {
-            adapter = new ArrayAdapter<Order>( getContext(), R.layout.order_line, orderArrayList) {
+            adapter = new ArrayAdapter<Order>(Objects.requireNonNull(getContext()), R.layout.order_line, orderArrayList) {
+                @SuppressLint("SetTextI18n")
                 @NonNull
                 @Override
                 public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -103,9 +104,9 @@ public class MyOrdersFragment extends Fragment {
                     TextView carIdView = convertView.findViewById( R.id.car_id );
                     TextView statusView = convertView.findViewById( R.id.order_status );
 
-                    idView.setText("Order ID: "  + order.getOrderID());
-                    carIdView.setText("Car ID: " +  order.getCarID());
-                    statusView.setText("Order ID " + order.getStatus());
+                    idView.setText(getString(R.string.Order_ID)  + order.getOrderID());
+                    carIdView.setText(getString(R.string.Car_ID) +  order.getCarID());
+                    statusView.setText(getString(R.string.Order_id) + order.getStatus());
                     return convertView;
                 }
             };
@@ -118,7 +119,7 @@ public class MyOrdersFragment extends Fragment {
                     Order order = (Order) parent.getItemAtPosition(position);
                     bundle.putInt("orderID",order.getOrderID());
                     orderInfoFragment.setArguments(bundle);
-                    changeFragement(orderInfoFragment);
+                    changeFragment(orderInfoFragment);
                 }
             });
         }
@@ -127,7 +128,7 @@ public class MyOrdersFragment extends Fragment {
 
 
 
-    public  void changeFragement(Fragment fragment) {
+    public  void changeFragment(Fragment fragment) {
         FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frgament_container, fragment);
         transaction.addToBackStack(null);

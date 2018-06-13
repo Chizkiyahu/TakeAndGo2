@@ -6,12 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,10 +27,11 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.CarModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 
-public class AvailableCarsFragment extends Fragment implements ItemListDialogFragment.Listener{
+public class AvailableCarsFragment extends Fragment implements ItemListDialogFragment.Listener {
 
 
     protected DataSource dataSource  = BackendFactory.getDataSource();
@@ -46,7 +49,6 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
     }
-
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -92,7 +94,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        Objects.requireNonNull(getActivity()).getMenuInflater().inflate(R.menu.main, menu);
+        requireNonNull(getActivity()).getMenuInflater().inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -109,9 +111,9 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
         return super.onOptionsItemSelected(item);
     }
 
-    protected ArrayAdapter getListViewAdapter() {
+    protected ArrayAdapter<Car> getListViewAdapter() {
         if(adapter == null) {
-            adapter =  new ArrayAdapter<Car>(Objects.requireNonNull(getContext()), R.layout.car_line, carArrayOfListView) {
+            adapter =  new ArrayAdapter<Car>(requireNonNull(getContext()), R.layout.car_line, carArrayOfListView) {
                 @SuppressLint("SetTextI18n")
                 @NonNull
                 @Override
@@ -134,6 +136,18 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
                     return convertView;
                 }
             };
+
+            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View view,
+                                        int position, long id) {
+                    CarInfoFragment carInfoFragment = new CarInfoFragment();
+                    Bundle bundle = new Bundle();
+                    Car car = (Car) parent.getItemAtPosition(position);
+                    bundle.putInt("carID", car.getId());
+                    carInfoFragment.setArguments(bundle);
+                    changeFragment(carInfoFragment);
+                }
+            });
         }
         return adapter;
     }
@@ -152,7 +166,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
             @Override
             protected void onPostExecute(Void aVoid) {
-                ItemListDialogFragment.newInstance(mValues, "choose car modle").show(getChildFragmentManager(), "dialog");
+                ItemListDialogFragment.newInstance(mValues, "choose car model").show(getChildFragmentManager(), "dialog");
             }
 
             @Override
@@ -179,7 +193,6 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
         return arrayList.toArray(new String[0]);
     }
-
 
     private ArrayList<CarModel> getCarModelOfCars(){
         @SuppressLint("UseSparseArrays")
@@ -218,7 +231,6 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
         }.execute();
     }
 
-
     private ArrayList<Car> getCarsOfModel(String name) throws Exception {
         ArrayList<Car> newCarArrayList = new ArrayList<>();
         if (name.equals("All")){
@@ -242,8 +254,10 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
         return newCarArrayList;
     }
 
-
-
-
-
+    public  void changeFragment(Fragment fragment) {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frgament_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }
