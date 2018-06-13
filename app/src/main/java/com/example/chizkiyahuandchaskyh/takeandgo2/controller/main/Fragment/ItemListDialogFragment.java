@@ -16,12 +16,12 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 
 public class ItemListDialogFragment extends BottomSheetDialogFragment {
 
-    // TODO: Customize parameter argument names
+
     private static final String ARG_VALUES = "values";
     private static final String ARG_TITLE = "title";
     private Listener mListener;
 
-    // TODO: Customize parameters
+
     public static ItemListDialogFragment newInstance(String[] values, String title) {
         final ItemListDialogFragment fragment = new ItemListDialogFragment();
         final Bundle args = new Bundle();

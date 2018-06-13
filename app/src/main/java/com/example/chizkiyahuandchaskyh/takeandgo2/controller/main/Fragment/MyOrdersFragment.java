@@ -55,7 +55,7 @@ public class MyOrdersFragment extends Fragment {
                 onClickCreateNew();
             }
         });
-
+        listView = view.findViewById(R.id.order_view);
         new AsyncTask<Void, Void, Void>() {
 
 
@@ -74,7 +74,6 @@ public class MyOrdersFragment extends Fragment {
             }
 
         }.execute();
-        listView = view.findViewById(R.id.order_view);
         adapter = null;
         getListViewAdapter();
         listView.setAdapter(getListViewAdapter());

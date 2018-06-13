@@ -33,6 +33,7 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.AboutUsFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchFragment;
+import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.AvailableCarsFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesMapFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.ContactUsFragment;
@@ -62,6 +63,7 @@ public class MainActivity extends AppCompatActivity
     MyOrdersFragment myOrdersFragment = null;
     AboutUsFragment aboutUsFragment = null;
     BranchesMapFragment branchesMapFragment = null;
+    AvailableCarsFragment availableCarsFragment = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -172,6 +174,7 @@ public class MainActivity extends AppCompatActivity
         if(fragment != null) {
             changeFragement(fragment);
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

@@ -97,6 +97,8 @@ public class CarModel {
         this.seating = seating;
     }
 
-
-
+    @Override
+    public String toString() {
+        return manufacturerName + " " + modelName;
+    }
 }
