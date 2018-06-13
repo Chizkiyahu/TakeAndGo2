@@ -147,7 +147,7 @@ public class DatabaseList implements  DataSource  {
     }
 
     @Override
-    public Customer tryUserPass(String username, String Password) throws Exception {
+    public Customer tryUserPass(String username, String Password) {
         return null;
     }
 
@@ -169,12 +169,12 @@ public class DatabaseList implements  DataSource  {
     }
 
     @Override
-    public void addCreditCard(CreditCard creditCard) throws Exception {
+    public void addCreditCard(CreditCard creditCard) {
 
     }
 
     @Override
-    public void addOrder(Order order) throws Exception {
+    public void addOrder(Order order) {
 
     }
 

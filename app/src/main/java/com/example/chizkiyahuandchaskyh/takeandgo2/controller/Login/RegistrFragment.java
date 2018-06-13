@@ -107,10 +107,7 @@ public class RegistrFragment extends Fragment {
     }
 
     boolean isPassStrong(String pass) {
-        if (pass.length() < 8){
-            return  false;
-        }
-        return true;
+        return pass.length() >= 8;
     }
 
 }

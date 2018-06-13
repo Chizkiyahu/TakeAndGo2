@@ -74,7 +74,7 @@ public class ItemListDialogFragment extends BottomSheetDialogFragment {
 
         ViewHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.fragment_item_list_dialog_item, parent, false));
-            text = (TextView) itemView.findViewById(R.id.text);
+            text = itemView.findViewById(R.id.text);
             text.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

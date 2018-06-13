@@ -27,14 +27,14 @@ public class ContactUsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_contact_us, container, false);
-        final EditText your_name        = (EditText) view.findViewById(R.id.your_name);
-        final EditText your_email       = (EditText) view.findViewById(R.id.your_email);
-        final EditText your_subject     = (EditText) view.findViewById(R.id.your_subject);
-        final EditText your_message     = (EditText) view.findViewById(R.id.your_message);
+        final EditText your_name        = view.findViewById(R.id.your_name);
+        final EditText your_email       = view.findViewById(R.id.your_email);
+        final EditText your_subject     = view.findViewById(R.id.your_subject);
+        final EditText your_message     = view.findViewById(R.id.your_message);
 
 
 
-        Button email = (Button) view.findViewById(R.id.post_message);
+        Button email = view.findViewById(R.id.post_message);
         email.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
