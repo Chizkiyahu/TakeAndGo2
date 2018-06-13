@@ -16,6 +16,8 @@ public class Address {
         this.city = oldAddress.city;
         this.street = oldAddress.street;
         this.houseNum = oldAddress.houseNum;
+        this.Latitude = oldAddress.Latitude;
+        this.longitude = oldAddress.longitude;
     }
 
     protected int id;
