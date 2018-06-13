@@ -1,7 +1,5 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,7 +18,6 @@ import android.widget.TextView;
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.BackendFactory;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.DataSource;
-import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Branch;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Car;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.CarModel;
 
@@ -35,7 +32,10 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
     protected DataSource dataSource  = BackendFactory.getDataSource();
     protected ListView listView;
     ArrayList<Car> carArrayList = new ArrayList<>();
+    ArrayList<Car> carArrayOfListView = new ArrayList<>();
     Map<Integer, CarModel> carModelMap = new HashMap<>();
+    Map<Integer, CarModel> carModelOfCarListViewMap = null;
+
     ArrayAdapter<Car> adapter = null;
 
     @Override
@@ -68,8 +68,15 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
             @Override
             protected Void doInBackground(Void... voids) {
                 carArrayList = new ArrayList<>(dataSource.getFreeCarList());
+                //is not mistake
+                if (carModelOfCarListViewMap == null){
+                    carArrayOfListView = new ArrayList<>(carArrayList);
+                }
                 for (CarModel carModel: dataSource.getCarModelList()){
                     carModelMap.put(carModel.getCodeModel(), carModel);
+                }
+                if (carModelOfCarListViewMap == null){
+                    carModelOfCarListViewMap = new HashMap<>(carModelMap);
                 }
                 return null;
             }
@@ -79,9 +86,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
         getListViewAdapter();
         listView.setAdapter(getListViewAdapter());
         getListViewAdapter().notifyDataSetChanged();
-
     }
-
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -104,7 +109,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
     protected ArrayAdapter getListViewAdapter() {
         if(adapter == null) {
-            adapter =  new ArrayAdapter<Car>(getContext(), R.layout.car_line, carArrayList) {
+            adapter =  new ArrayAdapter<Car>(getContext(), R.layout.car_line, carArrayOfListView) {
                 @NonNull
                 @Override
                 public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -184,20 +189,21 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
     @Override
     public void onItemClicked(final String value) {
+        //refreshData();
         new  AsyncTask<Void, Void, Void>(){
 
             @Override
             protected void onPostExecute(Void aVoid) {
 
                 getListViewAdapter().clear();
-                getListViewAdapter().addAll(carArrayList);
+                getListViewAdapter().addAll(carArrayOfListView);
                 getListViewAdapter().notifyDataSetChanged();
             }
 
             @Override
             protected Void doInBackground(Void... voids) {
                 try {
-                    carArrayList = getCarsOfModel(value);
+                    carArrayOfListView = getCarsOfModel(value);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -210,6 +216,9 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
     private ArrayList<Car> getCarsOfModel(String name) throws Exception {
         ArrayList<Car> newCarArrayList = new ArrayList<>();
+        if (name.equals("All")){
+            return dataSource.getFreeCarList();
+        }
         Integer modelId = -1;
         for (CarModel carModel: carModelMap.values()){
             if (name.equals(carModel.toString())){

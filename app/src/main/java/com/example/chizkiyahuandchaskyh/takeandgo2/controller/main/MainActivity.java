@@ -4,14 +4,11 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -28,17 +25,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.AboutUsFragment;
-import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.AvailableCarsFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesMapFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.ContactUsFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.MyOrdersFragment;
-import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Branch;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -166,6 +160,9 @@ public class MainActivity extends AppCompatActivity
                 break;
             case R.id.my_orders:
                 fragment = getMyOrdersFragment();
+                break;
+            case R.id.available_cars:
+                fragment =  getAvailableCarsFragment();
                 break;
                 default:
                     break;
@@ -307,5 +304,12 @@ public class MainActivity extends AppCompatActivity
         return aboutUsFragment;
     }
 
+
+    private AvailableCarsFragment getAvailableCarsFragment() {
+        if(availableCarsFragment == null) {
+            availableCarsFragment = new AvailableCarsFragment();
+        }
+        return availableCarsFragment;
+    }
 
 }
