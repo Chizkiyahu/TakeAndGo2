@@ -1,5 +1,6 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.CarModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class AvailableCarsFragment extends Fragment implements ItemListDialogFragment.Listener{
@@ -33,8 +35,9 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
     protected ListView listView;
     ArrayList<Car> carArrayList = new ArrayList<>();
     ArrayList<Car> carArrayOfListView = new ArrayList<>();
+    @SuppressLint("UseSparseArrays")
     Map<Integer, CarModel> carModelMap = new HashMap<>();
-    Map<Integer, CarModel> carModelOfCarListViewMap = null;
+    Boolean firestTime = true;
 
     ArrayAdapter<Car> adapter = null;
 
@@ -46,7 +49,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_available_cars, container, false);
         listView = view.findViewById(R.id.available_cars_view);
@@ -54,6 +57,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
         return view;
     }
 
+    @SuppressLint("StaticFieldLeak")
     void refreshData(){
         new  AsyncTask<Void, Void, Void>(){
 
@@ -69,14 +73,12 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
             protected Void doInBackground(Void... voids) {
                 carArrayList = new ArrayList<>(dataSource.getFreeCarList());
                 //is not mistake
-                if (carModelOfCarListViewMap == null){
+                if (firestTime){
                     carArrayOfListView = new ArrayList<>(carArrayList);
+                    firestTime = false;
                 }
                 for (CarModel carModel: dataSource.getCarModelList()){
                     carModelMap.put(carModel.getCodeModel(), carModel);
-                }
-                if (carModelOfCarListViewMap == null){
-                    carModelOfCarListViewMap = new HashMap<>(carModelMap);
                 }
                 return null;
             }
@@ -90,7 +92,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        getActivity().getMenuInflater().inflate(R.menu.main, menu);
+        Objects.requireNonNull(getActivity()).getMenuInflater().inflate(R.menu.main, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -109,7 +111,8 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
     protected ArrayAdapter getListViewAdapter() {
         if(adapter == null) {
-            adapter =  new ArrayAdapter<Car>(getContext(), R.layout.car_line, carArrayOfListView) {
+            adapter =  new ArrayAdapter<Car>(Objects.requireNonNull(getContext()), R.layout.car_line, carArrayOfListView) {
+                @SuppressLint("SetTextI18n")
                 @NonNull
                 @Override
                 public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
@@ -123,10 +126,10 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
                     TextView kmView = convertView.findViewById( R.id.car_line_km );
                     TextView modelIdView = convertView.findViewById( R.id.car_line_model_id );
 
-                    idView.setText("Car number:"  + car.getId() );
-                    branchIdView.setText("Branch ID:" + car.getBranchID() );
-                    kmView.setText("KM: " + car.getKm() );
-                    modelIdView.setText("Model : " + carModelMap.get(car.getModelID()).toString() );
+                    idView.setText(getString(R.string.car_number)  + car.getId() );
+                    branchIdView.setText(getString(R.string.branch_id_) + car.getBranchID() );
+                    kmView.setText(getString(R.string.km_) + car.getKm() );
+                    modelIdView.setText(getString(R.string.model_) + carModelMap.get(car.getModelID()).toString() );
 
                     return convertView;
                 }
@@ -141,6 +144,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
         refreshData();
     }
 
+    @SuppressLint("StaticFieldLeak")
     void onClickFilterItem(View view)
     {
         new  AsyncTask<Void, Void, Void>(){
@@ -178,6 +182,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
 
     private ArrayList<CarModel> getCarModelOfCars(){
+        @SuppressLint("UseSparseArrays")
         Map<Integer ,CarModel> newCarModelMap = new HashMap<>();
         for (Car car : carArrayList){
             if (newCarModelMap.get(car.getModelID()) == null){
@@ -187,9 +192,9 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
         return new ArrayList<>(newCarModelMap.values());
     }
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public void onItemClicked(final String value) {
-        //refreshData();
         new  AsyncTask<Void, Void, Void>(){
 
             @Override
