@@ -1,12 +1,14 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment;
 
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,14 +46,27 @@ public class OrderFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
+                    if (orderStartButton.getText().toString().equals("")){
+                        throw new Exception("You must select a start date");
+                    }
+                    if (orderEndButton.getText().toString().equals("")){
+                        throw new Exception("You must select a end date");
+                    }
                     Date startDate = sdf.parse(orderStartButton.getText().toString());
                     Date endDate = sdf.parse(orderEndButton.getText().toString());
                     if (endDate.before(startDate)){
                         throw new Exception("the end Date can't before start Date");
                     }
-                    if (Integer.parseInt( startKmView.getText().toString()) > Integer.parseInt( endKmView.getText().toString())){
-                        throw new Exception("the start KM can't big from end KM");
+                    if (!startKmView.getText().toString().equals("")){
+                        if (!endKmView.getText().toString().equals("")) {
+                            if (Integer.parseInt(startKmView.getText().toString()) > Integer.parseInt(endKmView.getText().toString())) {
+                                throw new Exception("the start KM can't big from end KM");
+                            }
+                        }
+                    }else if (!endKmView.getText().toString().equals("")){
+                        throw new Exception("Can not enter end km without start km");
                     }
+
                     SharedPreferences prefs = getActivity().getSharedPreferences("UserData", MODE_PRIVATE);
                     int customerId = prefs.getInt("customerId",0);
 
@@ -60,8 +75,8 @@ public class OrderFragment extends Fragment {
                             Order.STATUS.OPEN,
                             startDate,
                             endDate,
-                            Integer.parseInt( startKmView.getText().toString()),
-                            Integer.parseInt( endKmView.getText().toString()));
+                            Integer.parseInt( (startKmView.getText().toString().equals(""))? "-1" :startKmView.getText().toString() ),
+                            Integer.parseInt( (endKmView.getText().toString().equals(""))? "-1" :endKmView.getText().toString() ));
 
                     new AsyncTask<Order, Void,Void>(){
 
@@ -83,6 +98,16 @@ public class OrderFragment extends Fragment {
                     }.execute(order);
 
                 }catch (Exception e) {
+                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                    alertDialog.setTitle("Error");
+                    alertDialog.setMessage(e.getMessage());
+                    alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dialog.dismiss();
+                                }
+                            });
+                    alertDialog.show();
                     e.printStackTrace();
                 }
 
