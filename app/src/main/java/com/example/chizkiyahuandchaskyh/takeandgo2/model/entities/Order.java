@@ -1,7 +1,5 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.model.entities;
 
-import android.renderscript.Element;
-
 import java.util.Date;
 
 public class Order {

@@ -82,7 +82,7 @@
                 android:id="@+id/car_info_add_order"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/book_your_car" />
+                android:text="@string/book_the_car" />
 
 
 

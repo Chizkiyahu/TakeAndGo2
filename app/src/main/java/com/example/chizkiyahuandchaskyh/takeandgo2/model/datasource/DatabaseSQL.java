@@ -38,6 +38,7 @@ public class DatabaseSQL implements DataSource {
     private Map<Integer, Order> orders ;
     private DateFormat format = new SimpleDateFormat("yyyy-mm-d");
 
+    @SuppressLint("UseSparseArrays")
     @Override
     public Address getAddressByID(int id) {
         try {
@@ -47,7 +48,6 @@ public class DatabaseSQL implements DataSource {
             if (addresses == null){
                 addresses = new HashMap<>();
             }
-
             String url = WEB_URL + "getAddressesList.php" ;
             final ContentValues values = new ContentValues();
             values.put("id", id);
