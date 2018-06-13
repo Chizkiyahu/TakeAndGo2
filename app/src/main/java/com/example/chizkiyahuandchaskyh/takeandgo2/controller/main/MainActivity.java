@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity
     public void onClickBack(View view) {
     }
 
+    public void onClickNewOrder(View view) {
+    }
 
 
     public class ResponseReceiver extends BroadcastReceiver {
@@ -196,7 +198,9 @@ public class MainActivity extends AppCompatActivity
         transaction.commit();
     }
 
-
+    public void onClickAddOrder(View view) {
+        //The implementation of the code is in MyOrdersFragment
+    }
 
     public void onClickOrder(View view) {
         //The implementation of the code is in MyOrdersFragment
@@ -311,5 +315,6 @@ public class MainActivity extends AppCompatActivity
         }
         return availableCarsFragment;
     }
+
 
 }

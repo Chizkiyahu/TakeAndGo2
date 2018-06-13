@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class CarInfoFragment extends Fragment {
         numParkingSpacesView = view.findViewById(R.id.car_info_num_parking_spaces);
         engineCapacityView = view.findViewById(R.id.car_info_engine_capacity);
         seatingView = view.findViewById(R.id.car_info_seating);
-        addOrderButton = view.findViewById(R.id.car_info_add_order);
+
 
         carIdView.setText(getString(R.string.car_id__) + car.getId());
         branchIdView.setText(getString(R.string.branch_number_) + car.getBranchID());
@@ -56,6 +57,8 @@ public class CarInfoFragment extends Fragment {
         numParkingSpacesView.setText(getString(R.string.parking_spaces) + branch.getNumParkingSpaces());
         engineCapacityView.setText(getString(R.string.engine_capacity_) + carModel.getEngineCapacity());
         seatingView.setText(getString(R.string.seating_) + carModel.getSeating());
+
+        addOrderButton.setEnabled(true);
     }
 
 
@@ -64,6 +67,8 @@ public class CarInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_car_info, container, false);
+        addOrderButton = view.findViewById(R.id.car_info_add_order);
+        addOrderButton.setEnabled(false);
         new AsyncTask<View, Void, View>(){
 
             @Override
@@ -85,6 +90,30 @@ public class CarInfoFragment extends Fragment {
             }
 
         }.execute(view);
+
+
+        addOrderButton.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("StaticFieldLeak")
+            @Override
+            public void onClick(View view) {
+                OrderFragment orderFragment = new OrderFragment();
+                Bundle bundle = new Bundle();
+                bundle.putInt("carID",car.getId());
+                bundle.putBoolean("create", true);
+                orderFragment.setArguments(bundle);
+                changeFragment(orderFragment);
+            }
+        });
+
+
         return view;
+
+    }
+
+    public  void changeFragment(Fragment fragment) {
+        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frgament_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

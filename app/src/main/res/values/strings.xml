@@ -213,4 +213,8 @@
     <string name="Car_ID">Car ID:</string>
     <string name="Order_id">Order ID</string>
     <string name="book_the_car">Book the car</string>
+    <string name="from">From</string>
+    <string name="until">Until</string>
+    <string name="start_km">Start KM</string>
+    <string name="end_km">End KM</string>
 </resources>

@@ -689,22 +689,17 @@ public class DatabaseSQL implements DataSource {
 
     @Override
     public void addOrder(Order order) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
         try {
             String url = WEB_URL + "addOrder.php" ;
-
             final ContentValues values = new ContentValues();
-            values.put("orderID", order.getOrderID());
             values.put("customerID", order.getCustomerID());
             values.put("carID", order.getCarID());
             values.put("status",order.getStatus().toString());
-            values.put("start", order.getStart().toString());
-            values.put("end", order.getEnd().toString());
-            values.put("startKM", order.getStartKM());
+            values.put("start", sdf.format(order.getStart()));
+            values.put("end", sdf.format(order.getEnd()));
+            values.put("startKM",order.getStartKM());
             values.put("endKM", order.getEndKM());
-            values.put("returnNonFilledTank", order.getIsReturnNonFilledTank());
-            values.put("quantityOfLitersPerBill", order.getQuantityOfLitersPerBill());
-            values.put("amountToPay", order.getAmountToPay());
-
             Php.POST( url, values );
         } catch (Exception e) {
             Log.e(Constants.Log.TAG,e.getMessage());
