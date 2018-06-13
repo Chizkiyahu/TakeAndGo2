@@ -52,7 +52,7 @@ public class MyOrdersFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onClickCreateNew();
+                changeFragment(new AvailableCarsFragment());
             }
         });
         listView = view.findViewById(R.id.order_view);
@@ -83,9 +83,6 @@ public class MyOrdersFragment extends Fragment {
         return view;
     }
 
-    private void onClickCreateNew() {
-
-    }
 
     protected ArrayAdapter getListViewAdapter() {
 
@@ -106,7 +103,7 @@ public class MyOrdersFragment extends Fragment {
 
                     idView.setText(getString(R.string.Order_ID)  + order.getOrderID());
                     carIdView.setText(getString(R.string.Car_ID) +  order.getCarID());
-                    statusView.setText(getString(R.string.Order_id) + order.getStatus());
+                    statusView.setText(getString(R.string.Status) + order.getStatus());
                     return convertView;
                 }
             };
@@ -114,12 +111,20 @@ public class MyOrdersFragment extends Fragment {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    OrderInfoFragment orderInfoFragment = new OrderInfoFragment();
-                    Bundle bundle = new Bundle();
+
                     Order order = (Order) parent.getItemAtPosition(position);
-                    bundle.putInt("orderID",order.getOrderID());
-                    orderInfoFragment.setArguments(bundle);
-                    changeFragment(orderInfoFragment);
+                    if (order.getStatus().equals(Order.STATUS.CLOSED)){
+                        OrderInfoFragment orderInfoFragment = new OrderInfoFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("orderID",order.getOrderID());
+                        orderInfoFragment.setArguments(bundle);
+                        changeFragment(orderInfoFragment);
+                    }else {
+
+                        ///
+
+                    }
+
                 }
             });
         }

@@ -217,4 +217,5 @@
     <string name="until">Until</string>
     <string name="start_km">Start KM</string>
     <string name="end_km">End KM</string>
+    <string name="Status">Status :</string>
 </resources>

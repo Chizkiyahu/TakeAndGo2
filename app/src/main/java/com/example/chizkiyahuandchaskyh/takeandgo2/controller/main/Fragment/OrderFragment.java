@@ -31,7 +31,7 @@ import static android.content.Context.MODE_PRIVATE;
 public class OrderFragment extends Fragment {
     protected DataSource dataSource  = BackendFactory.getDataSource();
     Button orderStartButton, orderEndButton, createNewOrderButton;
-    AutoCompleteTextView  orderIdView, carIdView, startKmView, endKmView;
+    AutoCompleteTextView  orderIdView, carIdView, startKmView;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
 
 
@@ -57,15 +57,7 @@ public class OrderFragment extends Fragment {
                     if (endDate.before(startDate)){
                         throw new Exception("the end Date can't before start Date");
                     }
-                    if (!startKmView.getText().toString().equals("")){
-                        if (!endKmView.getText().toString().equals("")) {
-                            if (Integer.parseInt(startKmView.getText().toString()) > Integer.parseInt(endKmView.getText().toString())) {
-                                throw new Exception("the start KM can't big from end KM");
-                            }
-                        }
-                    }else if (!endKmView.getText().toString().equals("")){
-                        throw new Exception("Can not enter end km without start km");
-                    }
+
 
                     SharedPreferences prefs = getActivity().getSharedPreferences("UserData", MODE_PRIVATE);
                     int customerId = prefs.getInt("customerId",0);
@@ -76,7 +68,7 @@ public class OrderFragment extends Fragment {
                             startDate,
                             endDate,
                             Integer.parseInt( (startKmView.getText().toString().equals(""))? "-1" :startKmView.getText().toString() ),
-                            Integer.parseInt( (endKmView.getText().toString().equals(""))? "-1" :endKmView.getText().toString() ));
+                            -1 );
 
                     new AsyncTask<Order, Void,Void>(){
 
@@ -156,7 +148,6 @@ public class OrderFragment extends Fragment {
         orderIdView = view.findViewById(R.id.order_id);
         carIdView = view.findViewById(R.id.order_car_id);
         startKmView = view.findViewById(R.id.order_start_km);
-        endKmView = view.findViewById(R.id.order_end_km);
         Integer carid = getArguments().getInt("carID");
         carIdView.setText(carid.toString());
     }
