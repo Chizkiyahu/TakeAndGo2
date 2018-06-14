@@ -11,6 +11,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.SharedElementCallback;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -21,6 +24,7 @@ import android.widget.TextView;
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.BackendFactory;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.DataSource;
+import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Branch;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Order;
 
 import java.util.ArrayList;
@@ -29,7 +33,7 @@ import java.util.Objects;
 import static android.content.Context.MODE_PRIVATE;
 
 
-public class MyOrdersFragment extends Fragment {
+public class MyOrdersFragment extends Fragment implements ItemListDialogFragment.Listener {
 
 
     protected DataSource dataSource  = BackendFactory.getDataSource();
@@ -46,7 +50,27 @@ public class MyOrdersFragment extends Fragment {
             SharedPreferences prefs =getActivity().getSharedPreferences("UserData",MODE_PRIVATE);
             customerID =prefs.getInt("customerId", 0);
         }
+        setHasOptionsMenu(true);
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        getActivity().getMenuInflater().inflate(R.menu.main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case R.id.action_filter:
+                onClickFilterItem(item.getActionView());
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -157,6 +181,70 @@ public class MyOrdersFragment extends Fragment {
         super.setEnterSharedElementCallback(callback);
     }
 
+    void onClickFilterItem(View view)
+    {
+        new  AsyncTask<Void, Void, Void>(){
+            private String[] mValues;
 
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                ItemListDialogFragment.newInstance(mValues, "choose city").show(getChildFragmentManager(), "dialog");
+            }
 
+            @Override
+            protected Void doInBackground(Void... voids) {
+                mValues = getValuesForFilter();
+                return null;
+            }
+
+        }.execute();
+    }
+
+    private String[] getValuesForFilter() {
+        ArrayList<String> arrayList = new ArrayList<>();
+
+        arrayList.add("ALL");
+        arrayList.add("OPEN");
+        arrayList.add("CLOSED");
+
+        return arrayList.toArray(new String[0]);
+    }
+
+    @Override
+    public void onItemClicked(final String value) {
+        new  AsyncTask<Void, Void, Void>(){
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+
+                getListViewAdapter().clear();
+                getListViewAdapter().addAll(orderArrayList);
+                getListViewAdapter().notifyDataSetChanged();
+            }
+
+            @Override
+            protected Void doInBackground(Void... voids) {
+                orderArrayList = getOrdersWithStatus(value);
+                return null;
+            }
+
+        }.execute();
+    }
+
+    private ArrayList<Order> getOrdersWithStatus(String status) {
+        ArrayList<Order> res = new ArrayList<>();
+
+        for (Order order: dataSource.getOrdersList(customerID)) {
+            if(status.equals("ALL")) {
+                res.add(order);
+            }
+            else if(status.equals("OPEN") && order.getStatus() == Order.STATUS.OPEN) {
+                res.add(order);
+            }
+            else if(status.equals("CLOSED") && order.getStatus() == Order.STATUS.CLOSED) {
+                res.add(order);
+            }
+        }
+        return res;
+    }
 }

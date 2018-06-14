@@ -8,11 +8,11 @@
         <item
             android:id="@+id/branches"
             android:icon="@drawable/ic_branches_black_24dp"
-            android:title="@string/branches" />
+            android:title="Branches - List" />
         <item
             android:id="@+id/branches_map"
             android:icon="@drawable/ic_map_black_24dp"
-            android:title="@string/branches" />
+            android:title="Branches - Map" />
         <item
             android:id="@+id/my_orders"
             android:icon="@drawable/ic_orders_black_24dp"
