@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,6 +37,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
     protected DataSource dataSource  = BackendFactory.getDataSource();
     protected ListView listView;
+    protected LinearLayout emptyView;
     ArrayList<Car> carArrayList = new ArrayList<>();
     ArrayList<Car> carArrayOfListView = new ArrayList<>();
     @SuppressLint("UseSparseArrays")
@@ -59,6 +61,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_available_cars, container, false);
         listView = view.findViewById(R.id.available_cars_view);
+        emptyView = view.findViewById(R.id.empty_view);
         refreshData();
         return view;
     }
@@ -69,6 +72,15 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
             @Override
             protected void onPostExecute(Void aVoid) {
+
+                if(carArrayList.size() > 0) {
+                    listView.setVisibility(View.VISIBLE);
+                    emptyView.setVisibility(View.GONE);
+                }
+                else {
+                    listView.setVisibility(View.GONE);
+                    emptyView.setVisibility(View.VISIBLE);
+                }
 
                 getListViewAdapter().clear();
                 getListViewAdapter().addAll(carArrayList);

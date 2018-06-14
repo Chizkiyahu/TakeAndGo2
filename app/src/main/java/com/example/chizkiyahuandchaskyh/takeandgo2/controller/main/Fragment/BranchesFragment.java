@@ -31,7 +31,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 
-public class BranchesFragment extends Fragment implements ItemListDialogFragment.Listener, BranchFragment.Listener {
+public class BranchesFragment extends Fragment implements ItemListDialogFragment.Listener {
 
 
     protected DataSource dataSource  = BackendFactory.getDataSource();
@@ -116,12 +116,12 @@ public class BranchesFragment extends Fragment implements ItemListDialogFragment
                     Branch branch = this.getItem(position);
 
                     TextView addressView = convertView.findViewById(R.id.branch_line_address);
-                    TextView numberOfParkingSpacesView = convertView.findViewById(R.id.branch_line_num_parking_spaces);
+                    TextView numberOfParkingSpacesView = convertView.findViewById(R.id.branch_line_parking_spaces);
                     TextView branchIDView = convertView.findViewById(R.id.branch_line_id);
 
-                    addressView.setText("Address: " + branch.getAddress().toString());
-                    numberOfParkingSpacesView.setText("Parking spaces:" + branch.getNumParkingSpaces());
-                    branchIDView.setText("Branch ID: " + branch.getId());
+                    addressView.setText(branch.getAddress().toString());
+                    numberOfParkingSpacesView.setText(String.valueOf(branch.getNumParkingSpaces()));
+                    branchIDView.setText(String.valueOf(branch.getId()));
 
                     return convertView;
                 }

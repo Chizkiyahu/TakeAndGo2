@@ -34,7 +34,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class BranchFragment extends BottomSheetDialogFragment {
 
     private static final String ARG_BRANCH_ID = "branchID";
-    private Listener mListener;
     protected DataSource dataSource  = BackendFactory.getDataSource();
     private int branchId = 0;
     private Branch branch;
@@ -87,6 +86,9 @@ public class BranchFragment extends BottomSheetDialogFragment {
 
             @Override
             protected void onPostExecute(Void aVoid) {
+                TextView addressTextView = getView().findViewById(R.id.address_text_view);
+                addressTextView.setText(branch.getAddress().toString());
+
                 mapFragment.getMapAsync(new OnMapReadyCallback() {
                     @Override
                     public void onMapReady(GoogleMap googleMap) {
@@ -110,72 +112,6 @@ public class BranchFragment extends BottomSheetDialogFragment {
             }
 
         }.execute();
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        final Fragment parent = getParentFragment();
-        if (parent != null) {
-            mListener = (Listener) parent;
-        } else {
-            mListener = (Listener) context;
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        mListener = null;
-        super.onDetach();
-    }
-
-    public interface Listener {
-        //void onItemClicked(String value);
-    }
-
-    private class ViewHolder extends RecyclerView.ViewHolder {
-
-        final TextView text;
-
-        ViewHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.fragment_item_list_dialog_item, parent, false));
-            text = itemView.findViewById(R.id.text);
-            text.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mListener != null) {
-                        //mListener.onItemClicked(text.getText().toString());
-                        dismiss();
-                    }
-                }
-            });
-        }
-
-    }
-
-    private class ItemAdapter extends RecyclerView.Adapter<ViewHolder> {
-
-        private final String[] mValues;
-
-        ItemAdapter(String[] values) {
-            mValues = values;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            return new ViewHolder(LayoutInflater.from(parent.getContext()), parent);
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            holder.text.setText(mValues[position]);
-        }
-
-        @Override
-        public int getItemCount() {
-            return 0;
-        }
-
     }
 
 }
