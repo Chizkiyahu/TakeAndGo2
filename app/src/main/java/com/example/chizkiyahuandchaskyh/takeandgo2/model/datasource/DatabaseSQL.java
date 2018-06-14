@@ -186,16 +186,14 @@ public class DatabaseSQL implements DataSource {
             String json = Php.POST( url, values );
             JSONArray array = new JSONObject( json ).getJSONArray( "Customer" );
             for (int i = 0; i < array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject( i );
-                customers.put(jsonObject.getInt( "id" ),
+                JSONObject jsonObject = array.getJSONObject(i);
+                customers.put(jsonObject.getInt("id"),
                         new Customer(
-                                jsonObject.getString( "lastName" ),
-                                jsonObject.getString( "firstName" ),
-                                jsonObject.getInt( "id" ),
-                                jsonObject.getString( "phoneNumber" ),
-                                jsonObject.getString( "email"),
-                                getCreditCardByID(jsonObject.getInt( "creditCardID" ))
-                        )
+                                jsonObject.getString("lastName"),
+                                jsonObject.getString("firstName"),
+                                jsonObject.getInt("id"),
+                                jsonObject.getString("phoneNumber"),
+                                jsonObject.getString("email"))
                 );
             }
         } catch (Exception e) {

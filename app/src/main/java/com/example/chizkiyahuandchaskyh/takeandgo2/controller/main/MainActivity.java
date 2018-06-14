@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -24,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.Login.BasicLoginActivity;
@@ -33,12 +35,18 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.Bran
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.BranchesMapFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.ContactUsFragment;
 import com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment.MyOrdersFragment;
+import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.BackendFactory;
+import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.DataSource;
+import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Customer;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private ResponseReceiver receiver;
     private MenuItem filterItem;
+    protected DataSource dataSource  = BackendFactory.getDataSource();
     public void onClickBack(View view) {
     }
 
@@ -99,11 +107,36 @@ public class MainActivity extends AppCompatActivity
 
     void checkLogin(){
 
-        SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
+        final SharedPreferences prefs = getSharedPreferences("UserData", MODE_PRIVATE);
         if(! prefs.getBoolean("isLogon", false)){
             startActivity(new Intent( MainActivity.this, BasicLoginActivity.class));
 
         }
+        else {
+            new AsyncTask<Void, Void, Void>() {
+                Customer customer;
+
+                @Override
+                protected void onPostExecute(Void aVoid) {
+                    if(customer != null) {
+                        NavigationView navigationView = findViewById(R.id.nav_view);
+                        View header = navigationView.getHeaderView(0);
+                        TextView view = header.findViewById(R.id.textView2);
+                        view.setText(customer.getEmail());
+                    }
+                }
+
+                @Override
+                protected Void doInBackground(Void... voids) {
+                    int customerId = prefs.getInt("customerId", 0);
+                    customer = dataSource.getCustomerById(customerId);
+                    return null;
+                }
+
+            }.execute();
+        }
+
+
     }
 
 
