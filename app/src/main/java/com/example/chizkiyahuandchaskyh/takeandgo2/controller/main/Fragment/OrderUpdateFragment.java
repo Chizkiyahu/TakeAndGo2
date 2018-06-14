@@ -83,6 +83,8 @@ public class OrderUpdateFragment extends Fragment {
             });
         }
 
+
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("StaticFieldLeak")
             @Override
@@ -128,7 +130,7 @@ public class OrderUpdateFragment extends Fragment {
                     endDate,
                     Integer.parseInt( (startKmView.getText().toString().equals(""))? "-1" :startKmView.getText().toString() ),
                     Integer.parseInt( (endKmView.getText().toString().equals(""))? "-1" :endKmView.getText().toString() ),
-                    (filledTankSpinner.getSelectedItem().toString().equals("Yes"))? false :true,
+                    (filledTankSpinner.getSelectedItem().toString().equals("Yes"))? true :false,
                     quantityOfLiters,
                     costCalculation(startDate, endDate,quantityOfLiters )
                     );
@@ -202,6 +204,14 @@ public class OrderUpdateFragment extends Fragment {
                 if (order.getEndKM() != -1){
                     endKmView.setText(String.valueOf(order.getEndKM()));
                 }
+                if (!order.getIsReturnNonFilledTank()) {
+                    filledTankSpinner.setSelection(1);
+                    filledTankSpinner.getSelectedItem();
+                }else {
+                    filledTankSpinner.setSelection(0);
+                    filledTankSpinner.getSelectedItem();
+                }
+
             }
 
             @Override

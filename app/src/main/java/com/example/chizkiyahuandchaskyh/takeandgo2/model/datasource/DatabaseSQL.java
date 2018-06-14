@@ -230,7 +230,7 @@ public class DatabaseSQL implements DataSource {
                                 format.parse( jsonObject.getString("end")),
                                 jsonObject.getInt("startKM"),
                                 jsonObject.getInt("endKM"),
-                                Boolean.getBoolean(jsonObject.getString("returnNonFilledTank")),
+                                (jsonObject.getString("returnNonFilledTank").equals("true")? true : false),
                                 jsonObject.getInt("quantityOfLitersPerBill"),
                                 jsonObject.getInt("amountToPay")));
             }
