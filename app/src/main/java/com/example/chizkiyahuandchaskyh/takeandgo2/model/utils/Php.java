@@ -2,6 +2,7 @@ package com.example.chizkiyahuandchaskyh.takeandgo2.model.utils;
 
 
 import android.content.ContentValues;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,6 +15,7 @@ import java.net.URLEncoder;
 
 public class Php {
     public static String GET(String url) throws Exception {
+        Log.d(Constants.Log.TAG,"url----: " + url);
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
         con.setRequestMethod("GET");
@@ -34,7 +36,7 @@ public class Php {
     }
 
     public static String POST(String url, ContentValues params) throws IOException {
-
+        Log.d(Constants.Log.TAG,"url----: " + url);
         StringBuilder postData = new StringBuilder();
         for (String param : params.keySet()) {
             if (postData.length() != 0) postData.append('&');
