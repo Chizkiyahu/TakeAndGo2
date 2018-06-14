@@ -25,7 +25,11 @@ tools:context=".controller.main.Fragment.OrderUpdateFragment">
             android:maxLines="1"
             android:singleLine="true"
             android:enabled="false" />
+    </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <AutoCompleteTextView
             android:id="@+id/order_update_car_id"
@@ -96,6 +100,11 @@ tools:context=".controller.main.Fragment.OrderUpdateFragment">
             android:singleLine="true"
             android:enabled="true"
             android:inputType="number"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <AutoCompleteTextView
             android:id="@+id/order_update_end_km"
@@ -114,14 +123,19 @@ tools:context=".controller.main.Fragment.OrderUpdateFragment">
         android:layout_height="wrap_content"
         android:minHeight="15sp"
         android:id="@+id/order_update_filled_tank"/>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <EditText
+    <AutoCompleteTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/order_update_quantity_of_liters"
         android:minHeight="15sp"
+        android:hint="@string/the_amount_of_fuel_is_missing_for_a_full_tank"
         android:visibility="gone"
         android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
     android:id="@+id/order_update_save"

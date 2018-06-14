@@ -223,4 +223,5 @@
     <string name="customer_id">Customer ID</string>
     <string name="return_filled_tank">Return filled tank</string>
     <string name="quantity_of_liters_of_fuel_to_be_charged">Quantity of liters of fuel to be charged</string>
+    <string name="the_amount_of_fuel_is_missing_for_a_full_tank">The amount of fuel is missing for a full tank</string>
 </resources>
