@@ -75,6 +75,13 @@ public class BranchFragment extends BottomSheetDialogFragment {
         transaction.addToBackStack(null);
         transaction.commit();
 
+        final AvailableCarsFragment carsFragment = new AvailableCarsFragment();
+        carsFragment.branchId = branchId;
+        transaction = getChildFragmentManager().beginTransaction();
+        transaction.replace(R.id.cars_fragment, carsFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+
 
         new  AsyncTask<Void, Void, Void>(){
 

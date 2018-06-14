@@ -41,13 +41,17 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
     @SuppressLint("UseSparseArrays")
     Map<Integer, CarModel> carModelMap = new HashMap<>();
     Boolean firestTime = true;
+    public int branchId = 0;
 
     ArrayAdapter<Car> adapter = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
+
+        if(!isInSingleBranchMode()) {
+            setHasOptionsMenu(true);
+        }
     }
 
     @Override
@@ -73,7 +77,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
             @Override
             protected Void doInBackground(Void... voids) {
-                carArrayList = new ArrayList<>(dataSource.getFreeCarList());
+                carArrayList = new ArrayList<>(getFreeCarList());
                 //is not mistake
                 if (firestTime){
                     carArrayOfListView = new ArrayList<>(carArrayList);
@@ -94,7 +98,10 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        requireNonNull(getActivity()).getMenuInflater().inflate(R.menu.main, menu);
+        if (!isInSingleBranchMode())
+        {
+            requireNonNull(getActivity()).getMenuInflater().inflate(R.menu.main, menu);
+        }
         super.onCreateOptionsMenu(menu, inflater);
     }
 
@@ -234,7 +241,7 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
     private ArrayList<Car> getCarsOfModel(String name) throws Exception {
         ArrayList<Car> newCarArrayList = new ArrayList<>();
         if (name.equals("All")){
-            return dataSource.getFreeCarList();
+            return getFreeCarList();
         }
         Integer modelId = -1;
         for (CarModel carModel: carModelMap.values()){
@@ -246,12 +253,25 @@ public class AvailableCarsFragment extends Fragment implements ItemListDialogFra
         if (modelId == -1){
             throw new Exception("the model not found");
         }
-        for (Car car : dataSource.getFreeCarList()){
+        for (Car car : getFreeCarList()){
             if (modelId.equals(car.getModelID())){
                 newCarArrayList.add(car);
             }
         }
         return newCarArrayList;
+    }
+
+    private ArrayList<Car> getFreeCarList() {
+        if(!isInSingleBranchMode()) {
+            return dataSource.getFreeCarList();
+        }
+        else {
+            return dataSource.getFreeCarList(branchId);
+        }
+    }
+
+    private Boolean isInSingleBranchMode() {
+        return branchId != 0;
     }
 
     public  void changeFragment(Fragment fragment) {
