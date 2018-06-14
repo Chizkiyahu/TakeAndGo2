@@ -96,6 +96,7 @@ public class RegistrFragment extends Fragment {
                 }
             }
         });
+        getActivity().setTitle(getString(R.string.register_str));
         return view;
     }
 

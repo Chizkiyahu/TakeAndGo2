@@ -39,6 +39,7 @@ public class LoginFragment extends Fragment {
                 new TryUserPass(getView()).execute(user, pass);
             }
         });
+        getActivity().setTitle(getString(R.string.login));
         return view;
 
     }

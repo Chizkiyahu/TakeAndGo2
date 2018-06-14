@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity
 
     private ResponseReceiver receiver;
     private MenuItem filterItem;
+    private Menu menu;
     protected DataSource dataSource  = BackendFactory.getDataSource();
     public void onClickBack(View view) {
     }
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity
         registerReceiver(receiver, filter);
 
         changeFragement(getMyOrdersFragment());
+        setTitle(getString(R.string.my_order));
     }
 
     void checkLogin(){
