@@ -20,6 +20,8 @@ public interface DataSource {
     void addCreditCard(CreditCard creditCard) throws Exception;
     void addOrder(Order order) throws Exception;
 
+    void updateOrder(Order order) throws Exception;
+
 
 
     ArrayList<CarModel> getCarModelList();

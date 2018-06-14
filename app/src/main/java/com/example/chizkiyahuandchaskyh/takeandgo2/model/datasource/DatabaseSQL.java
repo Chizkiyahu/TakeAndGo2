@@ -823,4 +823,29 @@ public class DatabaseSQL implements DataSource {
     public ArrayList<Order> checkOrderCloseRecently() {
         return null;
     }
+
+    @Override
+    public void updateOrder(Order order) throws Exception {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+        try {
+            String url = WEB_URL + "updateOrder.php" ;
+            final ContentValues values = new ContentValues();
+            values.put("orderID", order.getOrderID());
+            values.put("customerID", order.getCustomerID());
+            values.put("carID", order.getCarID());
+            values.put("status",order.getStatus().toString());
+            values.put("start", sdf.format(order.getStart()));
+            values.put("end", sdf.format(order.getEnd()));
+            values.put("startKM",order.getStartKM());
+            values.put("endKM", order.getEndKM());
+            values.put("returnNonFilledTank", String.valueOf(order.getIsReturnNonFilledTank()));
+            values.put("quantityOfLitersPerBill", order.getQuantityOfLitersPerBill());
+            values.put("amountToPay", order.getAmountToPay());
+            Php.POST( url, values );
+        } catch (Exception e) {
+            Log.e(Constants.Log.TAG,e.getMessage());
+        }
+
+    }
 }

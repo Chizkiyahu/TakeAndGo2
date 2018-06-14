@@ -103,6 +103,11 @@
     <string name="_1800123456">1800123456</string>
     <string name="email_">Email:</string>
     <string name="title_activity_branch_fragment">BranchFragment</string>
+    <string-array name="filled_tank_strings">
+        <item>Yes</item>
+        <item>No</item>
+    </string-array>
+
     <string name="large_text">
         "Material is the metaphor.\n\n"
 
