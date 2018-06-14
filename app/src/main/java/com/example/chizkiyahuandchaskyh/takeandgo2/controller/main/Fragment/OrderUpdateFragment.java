@@ -30,7 +30,7 @@ import java.util.Objects;
 public class OrderUpdateFragment extends Fragment {
 
      private final static Integer  PRICE_FOR_DAY = 100;
-    private final static Integer  PןRICE_1L_FUEL = 100;
+    private final static Integer PRICE_1L_FUEL = 100;
 
     AutoCompleteTextView idView, carIdView,  quantityOfLitersView, startKmView, endKmView;
     Button startButton, endButton, saveButton, closedButton;
@@ -172,7 +172,7 @@ public class OrderUpdateFragment extends Fragment {
         int sum =  0;
         sum += (end.getDay() - start.getDay()) * PRICE_FOR_DAY;
         if (fule > 0){
-            sum += PןRICE_1L_FUEL * fule;
+            sum += PRICE_1L_FUEL * fule;
         }
         return sum;
     }

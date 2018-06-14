@@ -1,6 +1,7 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment;
 
 import android.annotation.SuppressLint;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,6 +26,8 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Order;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class MyOrdersFragment extends Fragment {
 
@@ -34,11 +36,16 @@ public class MyOrdersFragment extends Fragment {
     protected ListView listView;
     protected ArrayList<Order> orderArrayList = new ArrayList<>();
     protected ArrayAdapter<Order> adapter = null;
-    LinearLayout orderLinearLayout;
+    private Integer customerID = null;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (customerID == null){
+            SharedPreferences prefs =getActivity().getSharedPreferences("UserData",MODE_PRIVATE);
+            customerID =prefs.getInt("customerId", 0);
+        }
 
     }
 
@@ -56,6 +63,7 @@ public class MyOrdersFragment extends Fragment {
             }
         });
         listView = view.findViewById(R.id.order_view);
+
         new AsyncTask<Void, Void, Void>() {
 
 
@@ -69,7 +77,8 @@ public class MyOrdersFragment extends Fragment {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                orderArrayList = new ArrayList<>(dataSource.getOrdersList());
+
+                orderArrayList = new ArrayList<>(dataSource.getOrdersList(customerID));
                 return null;
             }
 

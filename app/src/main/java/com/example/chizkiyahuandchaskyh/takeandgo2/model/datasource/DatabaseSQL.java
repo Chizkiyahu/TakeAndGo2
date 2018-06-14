@@ -541,14 +541,16 @@ public class DatabaseSQL implements DataSource {
 
     @SuppressLint("UseSparseArrays")
     @Override
-    public ArrayList<Order> getOrdersList() {
+    public ArrayList<Order> getOrdersList(int customerID) {
         try {
             if (orders == null){
                 orders = new HashMap<>();
             }
             orders.clear();
-
-            String json = Php.GET( WEB_URL + "getOrdersList.php" );
+            String url = WEB_URL + "getOrdersList.php";
+            final ContentValues values = new ContentValues();
+            values.put("customerID", customerID);
+            String json = Php.POST(url, values  );
             JSONArray array = new JSONObject( json ).getJSONArray( "Order" );
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject( i );
@@ -780,13 +782,14 @@ public class DatabaseSQL implements DataSource {
     }
 
     @Override
-    public ArrayList<Order> getOpenOrdersList() {
+    public ArrayList<Order> getOpenOrdersList(int customerID) {
 
         ArrayList<Order> orders = new ArrayList<>();
         try {
             String url = WEB_URL + "getOrdersList.php";
             final ContentValues values = new ContentValues();
             values.put("status", "OPEN");
+            values.put("customerID", customerID);
             String json = Php.POST(url, values  );
             JSONArray array = new JSONObject( json ).getJSONArray( "Order" );
             for (int i = 0; i < array.length(); i++) {

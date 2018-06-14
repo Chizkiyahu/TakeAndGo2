@@ -146,7 +146,7 @@ public class DatabaseList implements  DataSource  {
     }
 
     @Override
-    public ArrayList<Order> getOrdersList() {
+    public ArrayList<Order> getOrdersList(int castumerID) {
         return null;
     }
 
@@ -203,7 +203,7 @@ public class DatabaseList implements  DataSource  {
     }
 
     @Override
-    public ArrayList<Order> getOpenOrdersList() {
+    public ArrayList<Order> getOpenOrdersList(int customerID) {
         return null;
     }
 

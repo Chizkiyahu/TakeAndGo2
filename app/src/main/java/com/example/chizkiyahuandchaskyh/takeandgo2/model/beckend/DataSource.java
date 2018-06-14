@@ -34,8 +34,8 @@ public interface DataSource {
     ArrayList<Car> getFreeCarList(double latitude, double longitude, int km);
     ArrayList<Address> getAddressesList();
     ArrayList<CreditCard> getCreditCardsList();
-    ArrayList<Order> getOrdersList();
-    ArrayList<Order> getOpenOrdersList();
+    ArrayList<Order> getOrdersList(int customerID);
+    ArrayList<Order> getOpenOrdersList(int customerID);
 
 
 
