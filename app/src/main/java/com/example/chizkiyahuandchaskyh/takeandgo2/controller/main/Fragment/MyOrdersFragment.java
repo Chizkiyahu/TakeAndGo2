@@ -120,8 +120,11 @@ public class MyOrdersFragment extends Fragment {
                         orderInfoFragment.setArguments(bundle);
                         changeFragment(orderInfoFragment);
                     }else {
-
-                        ///
+                        MyOrdersFragment myOrdersFragment = new MyOrdersFragment();
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("orderID",order.getOrderID());
+                        myOrdersFragment.setArguments(bundle);
+                        changeFragment(myOrdersFragment);
 
                     }
 

@@ -1,87 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".controller.main.Fragment.OrderInfoFragment">
 
-    <ScrollView
-
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_order_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/Order_ID"
+                android:enabled="false"
                 android:textSize="20sp" />
 
-            <TextView
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_customer_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/customer_id"
+                android:enabled="false"
                 android:textSize="20sp" />
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_car_id"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/car_id"
+                android:enabled="false"
                 android:textSize="20sp" />
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_status"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/Status"
+                android:enabled="false"
                 android:textSize="20sp" />
 
-            <TextView
+            </android.support.design.widget.TextInputLayout>
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/from"
+                android:enabled="false"
                 android:textSize="20sp" />
 
-            <TextView
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/until"
+                android:enabled="false"
                 android:textSize="20sp" />
 
-            <TextView
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_start_km"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/start_km"
+                android:enabled="false"
                 android:textSize="20sp" />
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_end_km"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/end_km"
+                android:enabled="false"
                 android:textSize="20sp" />
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_return_non_filled_tank"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="@string/return_filled_tank"
+                android:enabled="false"
                 android:textSize="20sp" />
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_quantity_of_liters_per_bill"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20sp" />
+                android:hint="@string/quantity_of_liters_of_fuel_to_be_charged"
+                android:enabled="false"
+                android:textSize="20sp"
+                android:visibility="gone"/>
+            </android.support.design.widget.TextInputLayout>
 
-            <TextView
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
                 android:id="@+id/order_info_amount_to_pay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:hint="total payment"
+                android:enabled="false"
                 android:textSize="20sp" />
+
+            </android.support.design.widget.TextInputLayout>
+
 
 
         </LinearLayout>
-    </ScrollView>
-</FrameLayout>
+
+</ScrollView>

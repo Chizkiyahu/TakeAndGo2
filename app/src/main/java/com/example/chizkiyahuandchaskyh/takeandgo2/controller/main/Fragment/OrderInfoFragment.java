@@ -2,22 +2,25 @@ package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.AutoCompleteTextView;
 
 import com.example.chizkiyahuandchaskyh.takeandgo2.R;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.BackendFactory;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.beckend.DataSource;
 import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Order;
 
+import java.util.Objects;
+
 
 public class OrderInfoFragment extends Fragment {
 
-    TextView orderIdView, carIdView, customerIdView, statusView, startView, endView, starKmView, endKmView;
-    TextView returnNonFilledTankView, quantityOfLitersPerBillView, amountToPayView;
+    AutoCompleteTextView orderIdView, carIdView, customerIdView, statusView, startView, endView, starKmView, endKmView;
+    AutoCompleteTextView returnNonFilledTankView, quantityOfLitersPerBillView, amountToPayView;
 
     protected DataSource dataSource  = BackendFactory.getDataSource();
     @Override
@@ -27,11 +30,11 @@ public class OrderInfoFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_order_info, container, false);
-        final int orderID = getArguments().getInt("orderID");
+        final int orderID = Objects.requireNonNull(getArguments()).getInt("orderID");
         init(view);
         new AsyncTask<Integer, Void, Order>(){
             @Override
@@ -45,7 +48,10 @@ public class OrderInfoFragment extends Fragment {
                 endView.setText(order.getEnd().toString());
                 starKmView.setText(Integer.toString(order.getStartKM()));
                 endKmView.setText(Integer.toString(order.getEndKM()));
-                returnNonFilledTankView.setText(String.valueOf(order.getIsReturnNonFilledTank()));
+                returnNonFilledTankView.setText(String.valueOf(!order.getIsReturnNonFilledTank()));
+                if (order.getIsReturnNonFilledTank()){
+                    quantityOfLitersPerBillView.setVisibility(View.VISIBLE);
+                }
                 quantityOfLitersPerBillView.setText(Integer.toString(order.getQuantityOfLitersPerBill()));
                 amountToPayView.setText(Integer.toString(order.getAmountToPay()));
             }

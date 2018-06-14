@@ -218,4 +218,9 @@
     <string name="start_km">Start KM</string>
     <string name="end_km">End KM</string>
     <string name="Status">Status :</string>
+    <string name="return_of_a_vehicle">Return of a vehicle</string>
+    <string name="save">Save</string>
+    <string name="customer_id">Customer ID</string>
+    <string name="return_filled_tank">Return filled tank</string>
+    <string name="quantity_of_liters_of_fuel_to_be_charged">Quantity of liters of fuel to be charged</string>
 </resources>

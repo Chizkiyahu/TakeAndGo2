@@ -1,5 +1,6 @@
 package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
@@ -23,6 +24,7 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Order;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 import java.util.TimeZone;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -58,7 +60,6 @@ public class OrderFragment extends Fragment {
                         throw new Exception("the end Date can't before start Date");
                     }
 
-
                     SharedPreferences prefs = getActivity().getSharedPreferences("UserData", MODE_PRIVATE);
                     int customerId = prefs.getInt("customerId",0);
 
@@ -69,6 +70,7 @@ public class OrderFragment extends Fragment {
                             endDate,
                             Integer.parseInt( (startKmView.getText().toString().equals(""))? "-1" :startKmView.getText().toString() ),
                             -1 );
+
 
                     new AsyncTask<Order, Void,Void>(){
 
@@ -90,7 +92,7 @@ public class OrderFragment extends Fragment {
                     }.execute(order);
 
                 }catch (Exception e) {
-                    AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+                    AlertDialog alertDialog = new AlertDialog.Builder(Objects.requireNonNull(getContext())).create();
                     alertDialog.setTitle("Error");
                     alertDialog.setMessage(e.getMessage());
                     alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "OK",
@@ -111,7 +113,7 @@ public class OrderFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePicker = new DatePickerDialog(getContext(),
+                DatePickerDialog datePicker = new DatePickerDialog(Objects.requireNonNull(getContext()),
                         startDatePickerListener,
                         cal.get(Calendar.YEAR),
                         cal.get(Calendar.MONTH),
@@ -126,7 +128,7 @@ public class OrderFragment extends Fragment {
 
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePicker = new DatePickerDialog(getContext(),
+                DatePickerDialog datePicker = new DatePickerDialog(Objects.requireNonNull(getContext()),
                         endDatePickerListener,
                         cal.get(Calendar.YEAR),
                         cal.get(Calendar.MONTH),
@@ -154,6 +156,7 @@ public class OrderFragment extends Fragment {
 
 
     private DatePickerDialog.OnDateSetListener startDatePickerListener = new DatePickerDialog.OnDateSetListener() {
+        @SuppressLint("SetTextI18n")
         @Override
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay ) {
@@ -168,6 +171,7 @@ public class OrderFragment extends Fragment {
 
     private DatePickerDialog.OnDateSetListener endDatePickerListener = new DatePickerDialog.OnDateSetListener() {
 
+        @SuppressLint("SetTextI18n")
         @Override
         public void onDateSet(DatePicker view, int selectedYear,
                               int selectedMonth, int selectedDay ) {

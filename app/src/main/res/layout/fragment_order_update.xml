@@ -1,14 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".controller.main.Fragment.OrderUpdateFragment">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+tools:context=".controller.main.Fragment.OrderUpdateFragment">
+
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content">
 
-</FrameLayout>
+        <AutoCompleteTextView
+            android:id="@+id/order_update_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Order_ID"
+            android:inputType="number"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:enabled="false" />
+
+
+        <AutoCompleteTextView
+            android:id="@+id/order_update_car_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/Car_ID"
+            android:inputType="number"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:enabled="false"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/from"
+            android:textSize="20sp"
+            android:layout_gravity="center"/>
+
+        <Button
+            android:id="@+id/order_update_start"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:enabled="false"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="@string/until"
+            android:textSize="20sp"
+            android:layout_gravity="center"
+            />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/order_update_end"
+            />
+
+    </LinearLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <AutoCompleteTextView
+            android:id="@+id/order_update_start_km"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/start_km"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:enabled="true"
+            android:inputType="number"/>
+
+        <AutoCompleteTextView
+            android:id="@+id/order_update_end_km"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/end_km"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:enabled="true"
+            android:inputType="number"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="15sp"
+        android:id="@+id/order_update_filled_tank"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/order_update_quantity_of_liters"
+        android:minHeight="15sp"
+        android:visibility="gone"
+        android:inputType="number" />
+
+    <Button
+    android:id="@+id/order_update_save"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:text="@string/save"
+    />
+
+    <Button
+        android:id="@+id/order_update_closed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/return_of_a_vehicle"
+        />
+
+
+</LinearLayout>
+
+
+
+</ScrollView>
