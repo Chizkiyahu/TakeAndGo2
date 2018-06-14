@@ -542,20 +542,16 @@ public class DatabaseSQL implements DataSource {
     @SuppressLint("UseSparseArrays")
     @Override
     public ArrayList<Order> getOrdersList(int customerID) {
+        ArrayList<Order> orders = new ArrayList<>();
+        String url = WEB_URL + "getOrdersList.php";
         try {
-            if (orders == null){
-                orders = new HashMap<>();
-            }
-            orders.clear();
-            String url = WEB_URL + "getOrdersList.php";
             final ContentValues values = new ContentValues();
             values.put("customerID", customerID);
             String json = Php.POST(url, values  );
             JSONArray array = new JSONObject( json ).getJSONArray( "Order" );
             for (int i = 0; i < array.length(); i++) {
                 JSONObject jsonObject = array.getJSONObject( i );
-                orders.put(jsonObject.getInt( "orderID" ),
-                        new Order(jsonObject.getInt( "orderID" ),
+                orders.add(new Order(jsonObject.getInt( "orderID" ),
                                 jsonObject.getInt( "customerID" ),
                                 jsonObject.getInt("carID"),
                                 Order.STATUS.valueOf(jsonObject.getString("status")),
@@ -570,7 +566,7 @@ public class DatabaseSQL implements DataSource {
         } catch (Exception e) {
             Log.e(Constants.Log.TAG,e.getMessage());
         }
-        return new ArrayList<>(orders.values());
+        return orders;
     }
 
     @SuppressLint("UseSparseArrays")
