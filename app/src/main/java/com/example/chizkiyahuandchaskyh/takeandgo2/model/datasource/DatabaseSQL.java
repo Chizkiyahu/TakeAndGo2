@@ -832,8 +832,6 @@ public class DatabaseSQL implements DataSource {
             String url = WEB_URL + "updateOrder.php" ;
             final ContentValues values = new ContentValues();
             values.put("orderID", order.getOrderID());
-            values.put("customerID", order.getCustomerID());
-            values.put("carID", order.getCarID());
             values.put("status",order.getStatus().toString());
             values.put("start", sdf.format(order.getStart()));
             values.put("end", sdf.format(order.getEnd()));

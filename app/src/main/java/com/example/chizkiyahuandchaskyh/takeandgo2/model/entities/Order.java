@@ -27,6 +27,18 @@ public class Order {
         return returnNonFilledTank;
     }
 
+    public Order(int orderID, STATUS status, Date start, Date end, int startKM, int endKM, boolean returnNonFilledTank, int quantityOfLitersPerBill, int amountToPay) {
+        this.orderID = orderID;
+        this.status = status;
+        this.start = start;
+        this.end = end;
+        this.startKM = startKM;
+        this.endKM = endKM;
+        this.returnNonFilledTank = returnNonFilledTank;
+        this.quantityOfLitersPerBill = quantityOfLitersPerBill;
+        this.amountToPay = amountToPay;
+    }
+
     public Order(int customerID, int carID, STATUS status, Date start, Date end, int startKM, int endKM) {
         this.customerID = customerID;
         this.carID = carID;

@@ -2,7 +2,6 @@ package com.example.chizkiyahuandchaskyh.takeandgo2.controller.main.Fragment;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.icu.text.SimpleDateFormat;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -27,12 +26,11 @@ import com.example.chizkiyahuandchaskyh.takeandgo2.model.entities.Order;
 import java.util.Date;
 import java.util.Objects;
 
-import static android.content.Context.MODE_PRIVATE;
-
 
 public class OrderUpdateFragment extends Fragment {
 
-
+     private final static Integer  PRICE_FOR_DAY = 100;
+    private final static Integer  PןRICE_1L_FUEL = 100;
 
     AutoCompleteTextView idView, carIdView,  quantityOfLitersView, startKmView, endKmView;
     Button startButton, endButton, saveButton, closedButton;
@@ -122,19 +120,18 @@ public class OrderUpdateFragment extends Fragment {
                     throw new Exception("the end KM can't bigger than start km");
                 }
             }
-
-            SharedPreferences prefs = getActivity().getSharedPreferences("UserData", MODE_PRIVATE);
-            //int orderID = prefs.getInt("orderID",0);
-
+           Integer quantityOfLiters = Integer.parseInt( (quantityOfLitersView.getText().toString().equals(""))? "-1" :quantityOfLitersView.getText().toString() );
             final Order order = new Order(
-                    Integer.parseInt(carIdView.getText().toString()),
-
-                    getArguments().getInt("carID"),
+                    Integer.parseInt(idView.getText().toString()),
                     status,
                     startDate,
                     endDate,
                     Integer.parseInt( (startKmView.getText().toString().equals(""))? "-1" :startKmView.getText().toString() ),
-                    Integer.parseInt( (endKmView.getText().toString().equals(""))? "-1" :endKmView.getText().toString() ));
+                    Integer.parseInt( (endKmView.getText().toString().equals(""))? "-1" :endKmView.getText().toString() ),
+                    (filledTankSpinner.getSelectedItem().toString().equals("Yes"))? false :true,
+                    quantityOfLiters,
+                    costCalculation(startDate, endDate,quantityOfLiters )
+                    );
 
             new AsyncTask<Order, Void,Void>(){
 
@@ -146,7 +143,7 @@ public class OrderUpdateFragment extends Fragment {
                 @Override
                 protected Void doInBackground(Order... orders) {
                     try {
-                        dataSource.addOrder(orders[0]);
+                        dataSource.updateOrder(orders[0]);
                     }catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -169,6 +166,15 @@ public class OrderUpdateFragment extends Fragment {
         }
 
 
+    }
+
+    private Integer costCalculation(Date start, Date end, Integer fule){
+        int sum =  0;
+        sum += (end.getDay() - start.getDay()) * PRICE_FOR_DAY;
+        if (fule > 0){
+            sum += PןRICE_1L_FUEL * fule;
+        }
+        return sum;
     }
 
     @SuppressLint("StaticFieldLeak")
